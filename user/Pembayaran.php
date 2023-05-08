@@ -62,7 +62,7 @@ $totalBayar = array_sum($total_harga);
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Profile - Brand</title>
+    <title>Pembayaran - User</title>
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap">
     <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
@@ -84,7 +84,7 @@ $totalBayar = array_sum($total_harga);
                 <ul class="navbar-nav text-light" id="accordionSidebar">
                     <li class="nav-item"><a class="nav-link" href="profile.php"><i class="fas fa-user"></i><span>Profile</span></a></li>
                     <li class="nav-item"><a class="nav-link active" href="keranjang.php"><i class="fas fa-cart-plus"></i><span>Keranjang</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="Pesanan.php"><i class=""></i><span>Pesanan</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="Pesanan.php"><i class="fas fa-clipboard-list"></i><span>Pesanan</span></a></li>
                     <li class="nav-item"><a class="nav-link" href="../index.php"><i class="fas fa-home"></i><span>Halaman Utama</span></a></li>
 
                 </ul>

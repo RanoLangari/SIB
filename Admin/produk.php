@@ -66,7 +66,7 @@ if (isset($_POST["hapus"])) {
 
 
 if (isset($_POST["AddExcel"])) {
-    if (importData($_FILES['excel']['tmp_name']) > 0) {
+    if (importData($_FILES['excel']) > 0) {
         echo "
             <script>
                 alert('Data berhasil ditambahkan');
@@ -93,7 +93,7 @@ if (isset($_POST["AddExcel"])) {
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Blank Page - Brand</title>
+    <title>Produk - Admin</title>
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap">
     <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
@@ -140,124 +140,136 @@ if (isset($_POST["AddExcel"])) {
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModalExcel" style="margin-bottom: 20px; margin-left: 20px;">
                         Tambah Data Via EXCEL
                     </button>
-                    <table class="table">
-                        <thead class="thead-dark">
-                            <tr style="text-align: center;">
-                                <th scope="col">No</th>
-                                <th scope="col">Nama</th>
-                                <th scope="col">Gambar</th>
-                                <th scope="col">Jumlah</th>
-                                <th scope="col">Harga</th>
-                                <th scope="col">Kategori</th>
-                                <th scope="col">Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php $i = 1; ?>
-
-                            <?php foreach ($order as $brng) : ?>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead class="thead-dark">
                                 <tr style="text-align: center;">
-                                    <td><?= $i; ?></td>
-                                    <td><?= $brng["nama"] ?></td>
-                                    <td>
-                                        <?php echo "<img src='assets/img/profile/" . $brng['gambar'] . "' width='100' height='100'>"; ?>
-                                    </td>
-                                    <td><?= $brng["jumlah"] ?></td>
-                                    <td><?= $brng["harga"] ?></td>
-                                    <td><?= $brng["kategori"] ?></td>
-                                    <td>
-                                        <button data-toggle="modal" data-target="#edit<?= $brng["id_produk"]; ?>" class="btn btn-warning">Edit</button> ||
-                                        <button data-toggle="modal" data-target="#hapus<?= $brng["id_produk"]; ?>" class="btn btn-danger">Hapus</button>
-                                    </td>
-
+                                    <th scope="col">No</th>
+                                    <th scope="col">Nama</th>
+                                    <th scope="col">Gambar</th>
+                                    <th scope="col">Jumlah</th>
+                                    <th scope="col">Harga</th>
+                                    <th scope="col">Kategori</th>
+                                    <th scope="col">Aksi</th>
                                 </tr>
-                                <?php $i++; ?>
-                                <!-- Modal Edit Data -->
-                                <div class="modal fade" id="edit<?= $brng["id_produk"]; ?>">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <form method="post" enctype="multipart/form-data">
+                            </thead>
+                            <tbody>
+                                <?php $i = 1; ?>
 
-                                                <!-- Header -->
-                                                <div class="modal-header">
-                                                    <h4 class="modal-title">UBAH DATA</h4>
-                                                </div>
-                                                <!-- Body -->
-                                                <div class="modal-body">
-                                                    <label for="nama">Nama</label>
-                                                    <input type="text" id="nama" name="nama" class="form-control-file" value="<?= $brng['nama'] ?>">
-                                                    <label for="gambar">Gambar</label>
-                                                    <input type="file" id="gambar" name="gambar" class="form-control-file">
-                                                    <label for="jumlah">Jumlah</label>
-                                                    <input type="text" id="jumlah" name="jumlah" class="form-control-file" value="<?= $brng['jumlah'] ?>">
-                                                    <label for="harga">Harga</label>
-                                                    <input type="text" id="harga" name="harga" class="form-control-file" value="<?= $brng['harga'] ?>">
-                                                    <label for="kategori">Kategori</label>
-                                                    <select name="kategori" class="custom-select form-control">
-                                                        <?php if ($brng['kategori'] == '') : ?>
-                                                            <option value="" selected>Pilih Kategori</option>
-                                                            <option value="serum">Serum</option>
-                                                            <option value="sunscreen">Sunscreen</option>
-                                                            <option value="pelembab">Pelembab</option>
-                                                            <option value="cleanser">Cleanser</option>
-                                                            <option value="toner">Toner</option>
-                                                        <?php else : ?>
-                                                            <option value="<?= $brng['kategori'] ?>" selected><?= $brng['kategori'] ?></option>
-                                                            <option value="serum">Serum</option>
-                                                            <option value="sunscreen">Sunscreen</option>
-                                                            <option value="pelembab">Pelembab</option>
-                                                            <option value="cleanser">Cleanser</option>
-                                                            <option value="toner">Toner</option>
-                                                        <?php endif; ?>
-                                                    </select>
+                                <?php foreach ($order as $brng) : ?>
+                                    <tr style="text-align: center;">
+                                        <td><?= $i; ?></td>
+                                        <td><?= $brng["nama"] ?></td>
+                                        <td>
+                                            <?php echo "<img src='assets/img/profile/" . $brng['gambar'] . "' width='100' height='100'>"; ?>
+                                        </td>
+                                        <td><?= $brng["jumlah"] ?></td>
+                                        <td><?= $brng["harga"] ?></td>
+                                        <td><?= $brng["kategori"] ?></td>
+                                        <td>
+                                            <button data-toggle="modal" data-target="#edit<?= $brng["id_produk"]; ?>" class="btn btn-warning"><i class="fa fa-pen"></i></button> ||
+                                            <button data-toggle="modal" data-target="#hapus<?= $brng["id_produk"]; ?>" class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                                        </td>
 
-                                                    <input type="hidden" name="id" value="<?= $brng["id_produk"]; ?>">
-                                                    <input type="hidden" name="gambarlama" value="<?= $brng["gambar"] ?>">
-                                                </div>
+                                    </tr>
+                                    <?php $i++; ?>
+                                    <!-- Modal Edit Data -->
+                                    <div class="modal fade" id="edit<?= $brng["id_produk"]; ?>">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <form method="post" enctype="multipart/form-data">
 
-                                                <!-- Modal footer -->
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-danger" data-dismiss="modal" style="border-radius: 0;">Batal</button>
-                                                    <button type="submit" class="btn btn-warning" name="UbahBrng" style="border-radius: 0;">Ubah</button>
-                                                </div>
-                                            </form>
+                                                    <!-- Header -->
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title">UBAH DATA</h4>
+                                                    </div>
+                                                    <!-- Body -->
+                                                    <div class="modal-body">
+                                                        <div class="form-group">
+                                                            <label>Nama</label>
+                                                            <input type="text" id="nama" name="nama" class="form-control" value="<?= $brng['nama'] ?>">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Gambar</label>
+                                                            <input type="file" id="gambar" name="gambar" class="form-control">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Jumlah</label>
+                                                            <input type="text" id="jumlah" name="jumlah" class="form-control" value="<?= $brng['jumlah'] ?>">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Harga</label>
+                                                            <input type="text" id="harga" name="harga" class="form-control" value="<?= $brng['harga'] ?>">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Kategori</label>
+                                                            <select name="kategori" class="custom-select form-control">
+                                                                <?php if ($brng['kategori'] == '') : ?>
+                                                                    <option value="" selected>Pilih Kategori</option>
+                                                                    <option value="serum">Serum</option>
+                                                                    <option value="sunscreen">Sunscreen</option>
+                                                                    <option value="pelembab">Pelembab</option>
+                                                                    <option value="cleanser">Cleanser</option>
+                                                                    <option value="toner">Toner</option>
+                                                                <?php else : ?>
+                                                                    <option value="<?= $brng['kategori'] ?>" selected><?= $brng['kategori'] ?></option>
+                                                                    <option value="serum">Serum</option>
+                                                                    <option value="sunscreen">Sunscreen</option>
+                                                                    <option value="pelembab">Pelembab</option>
+                                                                    <option value="cleanser">Cleanser</option>
+                                                                    <option value="toner">Toner</option>
+                                                                <?php endif; ?>
+                                                            </select>
+                                                        </div>
+
+                                                        <input type="hidden" name="id" value="<?= $brng["id_produk"]; ?>">
+                                                        <input type="hidden" name="gambarlama" value="<?= $brng["gambar"] ?>">
+                                                    </div>
+
+                                                    <!-- Modal footer -->
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="border-radius: 0;">Batal</button>
+                                                        <button type="submit" class="btn btn-primary" name="UbahBrng" style="border-radius: 0;">Ubah</button>
+                                                    </div>
+                                                </form>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <!-- End Modal Edit Data -->
-                                <!-- Modal hapus Data -->
-                                <div class="modal fade" id="hapus<?= $brng["id_produk"]; ?>">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <form method="post">
+                                    <!-- End Modal Edit Data -->
+                                    <!-- Modal hapus Data -->
+                                    <div class="modal fade" id="hapus<?= $brng["id_produk"]; ?>">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <form method="post">
 
-                                                <!-- Header -->
-                                                <div class="modal-header">
-                                                    <h4 class="modal-title">HAPUS DATA
-                                                        <?= $brng['nama'] ?> -
-                                                    </h4>
-                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                </div>
+                                                    <!-- Header -->
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title">HAPUS DATA
+                                                            <?= $brng['nama'] ?> -
+                                                        </h4>
+                                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    </div>
 
-                                                <!-- Modal body -->
-                                                <div class="modal-body">
-                                                    Anda yakin ingin menghapus data ini?
-                                                    <input type="hidden" name="id" value="<?= $brng['id_produk']; ?>">
-                                                </div>
+                                                    <!-- Modal body -->
+                                                    <div class="modal-body">
+                                                        Anda yakin ingin menghapus data ini?
+                                                        <input type="hidden" name="id" value="<?= $brng['id_produk']; ?>">
+                                                    </div>
 
-                                                <!-- Modal footer -->
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal" style="border-radius: 0;">Batal</button>
-                                                    <button type="submit" class="btn btn-danger" name="hapus" style="border-radius: 0;">Hapus</button>
-                                                </div>
-                                            </form>
+                                                    <!-- Modal footer -->
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="border-radius: 0;">Batal</button>
+                                                        <button type="submit" class="btn btn-danger" name="hapus" style="border-radius: 0;">Hapus</button>
+                                                    </div>
+                                                </form>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <!-- End Modal hapus Data -->
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
+                                    <!-- End Modal hapus Data -->
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
             <footer class="bg-white sticky-footer">
@@ -287,7 +299,7 @@ if (isset($_POST["AddExcel"])) {
                         </div>
                         <div class="form-group">
                             <label>Jumlah</label>
-                            <input type="number" name="jumlah" id="jumlah Barang" required>
+                            <input type="number" name="jumlah" id="jumlah Barang" class="form-control" required>
                         </div>
 
                         <div class="form-group">

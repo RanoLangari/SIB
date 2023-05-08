@@ -263,7 +263,7 @@ function HapusBarang($data)
 }
 
 
-function importData()
+function importData($data)
 {
     global $conn;
     $fileName = $_FILES['excel']['tmp_name'];
@@ -391,7 +391,7 @@ function ubahBuktiPembayaran($data)
     }
     $cekTokenPesanan = mysqli_query($conn, "SELECT * FROM pesanan WHERE token_pesanan = '$tokenPesanan'");
     foreach ($cekTokenPesanan as $row) {
-        mysqli_query($conn, "UPDATE pesanan SET bukti_pembayaran = '$buktiPembayaran' WHERE id_pesanan = '$row[id_pesanan]'");
+        mysqli_query($conn, "UPDATE pesanan SET bukti_pembayaran = '$buktiPembayaran', status_pembayaran = 'Menunggu Konfirmasi', status_pengiriman = 'Dalam Pengemasan' WHERE id_pesanan = '$row[id_pesanan]'");
     }
     return mysqli_affected_rows($conn);
 }
