@@ -7,7 +7,7 @@ ini_set("display_errors", "1");
 error_reporting(E_ALL);
 
 
-$conn = mysqli_connect("localhost", "root", "", "sib");
+$conn = mysqli_connect("localhost", "root", "", "betaglowing");
 session_start();
 
 function getToken($length)
@@ -263,7 +263,7 @@ function HapusBarang($data)
 }
 
 
-function importData($data)
+function importData()
 {
     global $conn;
     $fileName = $_FILES['excel']['tmp_name'];
@@ -284,7 +284,6 @@ function addToCart($data)
 {
     global $conn;
     $id_barang = $data["id_barang"];
-    $harga = $data["harga"];
     $id_user = $data["id_user"];
 
     $cekCart = mysqli_query($conn, "SELECT * FROM keranjang WHERE id_user = '$id_user' AND id_barang = '$id_barang'");

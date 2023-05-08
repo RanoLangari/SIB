@@ -334,7 +334,6 @@ if (isset($_POST['addToCart'])) {
       <div class="client_logos">
         <!--client_logos-->
         <div class="container">
-          </ul>
         </div>
       </div>
     </section>
@@ -516,8 +515,8 @@ if (isset($_POST['addToCart'])) {
           </section>
         </div>
     </section>
-    <div class="footer_bottom"><span>Copyright ©BetaGlowing Shop 2023</a>
-      </span></div>
+      <footer>
+    <div class="footer_bottom"><span>Copyright ©BetaGlowing Shop 2023</a></span></div>
     </footer>
   </div>
 

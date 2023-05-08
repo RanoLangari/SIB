@@ -120,8 +120,8 @@ if (isset($_POST['hapusDataPesanan'])) {
                         <div class="table-responsive">
                             <table class="table table-bordered">
                                 <tr>
-                                    <th>Produk Yang Diorder</th>
-                                    <th>Total Harga Per Produk</th>
+                                    <th class="w-25">Produk Yang Diorder</th>
+                                    <th class="w-25">Total Harga Per Produk</th>
                                     <th>Total Harga</th>
                                     <th>Nama Penerima</th>
                                     <th>No. Telepon</th>
@@ -135,7 +135,7 @@ if (isset($_POST['hapusDataPesanan'])) {
                                 </tr>
                                 <?php
                                 $id = $_SESSION['id'];
-                                $query = mysqli_query($conn, "SELECT pesanan.nama_penerima, pesanan.no_hp, pesanan.tgl_pesanan, pesanan.id_pesanan, orderan.harga, pesanan.jumlah_pesanan,pesanan.alamat,pesanan.metode_pembayaran,pesanan.bukti_pembayaran,pesanan.status_pembayaran,pesanan.status_pengiriman,pesanan.token_pesanan, GROUP_CONCAT(CONCAT('<li>',orderan.nama ,'<b> - </b>', pesanan.jumlah_pesanan,' pcs </li>') SEPARATOR '') AS id_produk, GROUP_CONCAT(CONCAT('<li>','Rp.',orderan.harga * pesanan.jumlah_pesanan,'</li>') SEPARATOR '') AS total_harga FROM pesanan LEFT JOIN orderan ON pesanan.id_produk = orderan.id_produk  GROUP BY pesanan.token_pesanan ORDER BY pesanan.id_pesanan DESC");
+                                $query = mysqli_query($conn, "SELECT pesanan.nama_penerima, pesanan.no_hp, pesanan.tgl_pesanan, pesanan.id_pesanan, orderan.harga, pesanan.jumlah_pesanan,pesanan.alamat,pesanan.metode_pembayaran,pesanan.bukti_pembayaran,pesanan.status_pembayaran,pesanan.status_pengiriman,pesanan.token_pesanan, GROUP_CONCAT(CONCAT('<li>',orderan.nama,'<b> - </b>', pesanan.jumlah_pesanan,' pcs </li>') SEPARATOR '') AS id_produk, GROUP_CONCAT(CONCAT('<li>','Rp.',orderan.harga * pesanan.jumlah_pesanan,'</li>') SEPARATOR '') AS total_harga FROM pesanan LEFT JOIN orderan ON pesanan.id_produk = orderan.id_produk  GROUP BY pesanan.token_pesanan ORDER BY pesanan.id_pesanan DESC");
                                 while ($row = mysqli_fetch_array($query)) {
                                 ?>
                                     <tr>
@@ -152,7 +152,11 @@ if (isset($_POST['hapusDataPesanan'])) {
                                         <td><?php echo $row['no_hp']; ?></td>
                                         <td><?php echo $row['alamat']; ?></td>
                                         <td><?php echo $row['tgl_pesanan']; ?></td>
-                                        <td><?php echo "<img class='zoom' style='width: 70px; height: 70px;' src='../user/assets/img/profile/" . $row['bukti_pembayaran'] . "''>"; ?></td>
+                                        <td><?php if ($row['bukti_pembayaran'] == NULL) {
+                                                echo "Belum Ada Bukti Pembayaran";
+                                            } else {
+                                                echo "<a href='../user/assets/img/profile/" . $row['bukti_pembayaran'] . "' target='_blank'>Lihat Bukti Pembayaran</a>";
+                                            } ?></td>
                                         <td><?php echo $row['metode_pembayaran']; ?></td>
                                         <td><?php echo $row['status_pembayaran']; ?></td>
                                         <td><?php echo $row['status_pengiriman']; ?></td>
