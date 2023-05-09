@@ -331,7 +331,8 @@ function addPesanan($data)
         $result = mysqli_query($conn, "SELECT * FROM keranjang WHERE id_keranjang = '$value'");
         $row = mysqli_fetch_assoc($result);
 
-        mysqli_query($conn, "INSERT INTO pesanan VALUES (NULL,'$row[id_barang]','$id_user','$row[jumlah_order]', '$namaPenerima', '$alamat', '$noHp', '$tgl_pesanan', '$metodePembayaran','$tokenPesanan', '', 'Belum Dibayar', 'Menunggu Pembayaran')");
+        mysqli_query($conn, "INSERT INTO pesanan VALUES (NULL,'$row[id_barang]','$id_user','$row[jumlah_order]', '$namaPenerima', '$alamat', '$noHp', '$tgl_pesanan', '$metodePembayaran','$tokenPesanan', '', 'Belum Dibayar', 'Menunggu Pembayaran', '1')");
+
         // mysqli_query($conn, "DELETE FROM keranjang WHERE id_keranjang = '$value'");
     }
     return mysqli_affected_rows($conn);
@@ -393,5 +394,14 @@ function ubahBuktiPembayaran($data)
     foreach ($cekTokenPesanan as $row) {
         mysqli_query($conn, "UPDATE pesanan SET bukti_pembayaran = '$buktiPembayaran', status_pembayaran = 'Menunggu Konfirmasi', status_pengiriman = 'Dalam Pengemasan' WHERE id_pesanan = '$row[id_pesanan]'");
     }
+    return mysqli_affected_rows($conn);
+}
+
+
+function clearAllNotification($data)
+{
+    global $conn;
+
+    mysqli_query($conn, "UPDATE pesanan SET status_notifikasi = '0' ");
     return mysqli_affected_rows($conn);
 }

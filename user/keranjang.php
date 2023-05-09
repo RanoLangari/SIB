@@ -128,12 +128,13 @@ if (isset($_POST["hapusDataOrder"])) {
                                     ?>
                                     <tr>
                                         <td><?= $myKeranjang["nama"] ?></td>
-                                        <td><?= $myKeranjang["jumlah_order"] ?></td>
+                                        <td>
+                                            <?= $myKeranjang["jumlah_order"] ?> || <button data-toggle="modal" data-target="#edit<?= $myKeranjang["id_keranjang"]; ?>" class="btn btn-warning"><i class="fa fa-pen fa-xs"></i></button>
+                                        </td>
                                         <td>Rp.<?= $myKeranjang["harga"] ?></td>
                                         <td>Rp.<?= $totalHarga  ?></td>
                                         <td>
-                                            <button data-toggle="modal" data-target="#edit<?= $myKeranjang["id_keranjang"]; ?>" class="btn btn-warning">Edit</button> ||
-                                            <button data-toggle="modal" data-target="#hapus<?= $myKeranjang["id_keranjang"]; ?>" class="btn btn-danger">Hapus</button>
+                                            <button data-toggle="modal" data-target="#hapus<?= $myKeranjang["id_keranjang"]; ?>" class="btn btn-danger"><i class="fa fa-trash fa-xs"></i></button>
                                         </td>
                                     </tr>
                                     <!-- Modal Edit Data -->

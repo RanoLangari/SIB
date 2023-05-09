@@ -82,6 +82,30 @@ if (isset($_POST["AddExcel"])) {
 }
 
 
+if (isset($_POST['clearAll'])) {
+    if (clearAllNotification($_POST) > 0) {
+        echo "
+            <script>
+                document.location.href = 'profile.php';
+            </script>
+        ";
+    } else {
+        echo "
+            <script>
+                document.location.href = 'profile.php';
+            </script>
+        ";
+
+        mysqli_error($conn);
+    }
+}
+
+$queryTotalNotification = mysqli_query($conn, "SELECT COUNT(*) as totalNotif FROM pesanan WHERE status_notifikasi = '1'");
+$rowNotification = mysqli_fetch_assoc($queryTotalNotification);
+
+
+
+
 ?>
 
 
@@ -122,6 +146,35 @@ if (isset($_POST["AddExcel"])) {
                 <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
                     <div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle me-3" id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>
                         <ul class="navbar-nav flex-nowrap ms-auto">
+                            <li class="nav-item dropdown no-arrow mx-1">
+                                <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><span class="badge bg-danger badge-counter"><?= $rowNotification['totalNotif'] ?></span><i class="fas fa-bell fa-fw"></i></a>
+                                    <div class="dropdown-menu dropdown-menu-end dropdown-list animated--grow-in">
+                                        <?php
+                                        $queryNotification = mysqli_query($conn, "SELECT * FROM pesanan WHERE status_notifikasi = '1'");
+
+                                        ?>
+                                        <h6 class="dropdown-header">Notifikasi</h6>
+                                        <?php if (mysqli_num_rows($queryNotification) == 0) : ?>
+                                            <a class="dropdown-item d-flex align-items-center" href="#">
+                                                <p class="text-center">Tidak ada notifikasi</p>
+                                            </a>
+                                        <?php else : ?>
+                                            <?php while ($dataNotifikasi = mysqli_fetch_assoc($queryNotification)) : ?>
+                                                <a class="dropdown-item d-flex align-items-center" href="./Pesanan.php">
+                                                    <div><span class="small text-gray-500">data</span>
+                                                        <p>Ada Pesanan Baru!</p>
+                                                    </div>
+                                                </a>
+                                            <?php endwhile; ?>
+                                            <form action="" method="post">
+                                                <button type="submit" name="clearAll" class="dropdown-item text-center small text-gray-500">Hapus Notifikasi</button>
+                                            </form>
+
+                                        <?php endif; ?>
+
+                                    </div>
+                                </div>
+                            </li>
                             <div class="d-none d-sm-block topbar-divider"></div>
                             <li class="nav-item dropdown no-arrow">
                                 <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><span class="d-none d-lg-inline me-2 text-gray-600 small"><?= $row["username"] ?></span><?php echo "<img class='border rounded-circle img-profile' src='assets/img/profile/" . $row['gambar'] . "''>"; ?></a>

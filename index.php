@@ -129,8 +129,6 @@ if (isset($_POST['addToCart'])) {
       </div>
     </header>
     <!--Header_section-->
-
-    <!--Hero_Section-->
     <section id="hero_section" class="top_cont_outer">
       <div class="hero_wrapper">
         <div class="container">
@@ -152,76 +150,6 @@ if (isset($_POST['addToCart'])) {
         </div>
       </div>
     </section>
-    <!--Hero_Section-->
-
-    <section id="aboutUs">
-      <!--Aboutus-->
-      <div class="inner_wrapper">
-        <div class="container">
-          <h2>About Us</h2>
-          <div class="inner_section">
-            <div class="row">
-              <div class=" col-lg-4 col-md-4 col-sm-4 col-xs-12 pull-right"><img src="img/about-img.jpg" class="img-circle delay-03s animated wow zoomIn" alt=""></div>
-              <div class=" col-lg-7 col-md-7 col-sm-7 col-xs-12 pull-left">
-                <div class=" delay-01s animated fadeInDown wow animated">
-                  <h3>Sekilas Mengenai BetaGlowing Shop</h3><br />
-                  <p>Kami adalah toko skincare yang berkomitmen untuk menyediakan produk-produk skincare berkualitas tinggi dan aman untuk kulit. Dengan pengalaman lebih dari 10 tahun di industri skincare, kami memahami betapa pentingnya perawatan kulit yang tepat untuk mencapai kulit yang sehat dan bercahaya. Produk-produk kami terdiri dari bahan-bahan alami yang dipilih dengan cermat untuk memberikan hasil yang optimal dan memenuhi kebutuhan semua jenis kulit. Kami bangga dapat memberikan solusi perawatan kulit yang efektif dan terjangkau bagi pelanggan kami.</p>
-                </div>
-                <div class="work_bottom"> <span>Ingin Tau Lebih??..</span> <a href="#contact" class="contact_btn">Contact
-                    Us</a> </div>
-              </div>
-
-            </div>
-
-
-          </div>
-        </div>
-      </div>
-    </section>
-    <!--Aboutus-->
-
-
-    <!--Service-->
-    <section id="service">
-      <div class="container">
-        <h2>Services</h2>
-        <div class="service_wrapper">
-          <div class="row">
-            <div class="col-lg-4">
-              <div class="service_block">
-                <div class="service_icon icon2  delay-03s animated wow zoomIn"> <span><i class="fa fa-cart-plus"></i></span>
-                </div>
-                <h3 class="animated fadeInUp wow">Tambahkan Ke Keranjang</h3>
-                <p class="animated fadeInDown wow">pilih produk yang anda ingin beli, setelah itu tambahkan ke keranjang
-                </p>
-              </div>
-            </div>
-            <div class="col-lg-4 borderLeft">
-              <div class="service_block">
-                <div class="service_icon delay-03s animated wow  zoomIn"> <span><i class="fa fa-credit-card"></i></span>
-                </div>
-                <h3 class="animated fadeInUp wow">Pembayaran Mudah</h3>
-                <p class="animated fadeInDown wow">Nikmati Pembayaran Yang Cepat dan Mudah</p>
-              </div>
-            </div>
-            <div class="col-lg-4 borderLeft">
-              <div class="service_block">
-                <div class="service_icon icon3  delay-03s animated wow zoomIn"> <span><i class="fa fa-truck"></i></span>
-                </div>
-                <h3 class="animated fadeInUp wow">Fast Delivery</h3>
-                <p class="animated fadeInDown wow">Pengiriman Cepat, Secepat Badai Seroja</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <!--Service-->
-
-
-
-
-    <!-- Portfolio -->
     <section id="Portfolio" class="content">
 
       <!-- Container -->
@@ -326,6 +254,79 @@ if (isset($_POST['addToCart'])) {
 
 
     </section>
+    <!--Hero_Section-->
+
+    <!--Hero_Section-->
+
+    <section id="aboutUs">
+      <!--Aboutus-->
+      <div class="inner_wrapper">
+        <div class="container">
+          <h2>About Us</h2>
+          <div class="inner_section">
+            <div class="row">
+              <div class=" col-lg-4 col-md-4 col-sm-4 col-xs-12 pull-right"><img src="img/about-img.jpg" class="img-circle delay-03s animated wow zoomIn" alt=""></div>
+              <div class=" col-lg-7 col-md-7 col-sm-7 col-xs-12 pull-left">
+                <div class=" delay-01s animated fadeInDown wow animated">
+                  <h3>Sekilas Mengenai BetaGlowing Shop</h3><br />
+                  <p>Kami adalah toko skincare yang berkomitmen untuk menyediakan produk-produk skincare berkualitas tinggi dan aman untuk kulit. Dengan pengalaman lebih dari 10 tahun di industri skincare, kami memahami betapa pentingnya perawatan kulit yang tepat untuk mencapai kulit yang sehat dan bercahaya. Produk-produk kami terdiri dari bahan-bahan alami yang dipilih dengan cermat untuk memberikan hasil yang optimal dan memenuhi kebutuhan semua jenis kulit. Kami bangga dapat memberikan solusi perawatan kulit yang efektif dan terjangkau bagi pelanggan kami.</p>
+                </div>
+                <div class="work_bottom"> <span>Ingin Tau Lebih??..</span> <a href="#contact" class="contact_btn">Contact
+                    Us</a> </div>
+              </div>
+
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+    </section>
+    <!--Aboutus-->
+
+
+    <!--Service-->
+    <section id="service">
+      <div class="container">
+        <h2>Services</h2>
+        <div class="service_wrapper">
+          <div class="row">
+            <div class="col-lg-4">
+              <div class="service_block">
+                <div class="service_icon icon2  delay-03s animated wow zoomIn"> <span><i class="fa fa-cart-plus"></i></span>
+                </div>
+                <h3 class="animated fadeInUp wow">Tambahkan Ke Keranjang</h3>
+                <p class="animated fadeInDown wow">pilih produk yang anda ingin beli, setelah itu tambahkan ke keranjang
+                </p>
+              </div>
+            </div>
+            <div class="col-lg-4 borderLeft">
+              <div class="service_block">
+                <div class="service_icon delay-03s animated wow  zoomIn"> <span><i class="fa fa-credit-card"></i></span>
+                </div>
+                <h3 class="animated fadeInUp wow">Pembayaran Mudah</h3>
+                <p class="animated fadeInDown wow">Nikmati Pembayaran Yang Cepat dan Mudah</p>
+              </div>
+            </div>
+            <div class="col-lg-4 borderLeft">
+              <div class="service_block">
+                <div class="service_icon icon3  delay-03s animated wow zoomIn"> <span><i class="fa fa-truck"></i></span>
+                </div>
+                <h3 class="animated fadeInUp wow">Fast Delivery</h3>
+                <p class="animated fadeInDown wow">Pengiriman Cepat, Secepat Badai Seroja</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!--Service-->
+
+
+
+
+    <!-- Portfolio -->
+
     <!--/Portfolio -->
 
     <section class="page_section" id="clients">
@@ -515,8 +516,8 @@ if (isset($_POST['addToCart'])) {
           </section>
         </div>
     </section>
-      <footer>
-    <div class="footer_bottom"><span>Copyright ©BetaGlowing Shop 2023</a></span></div>
+    <footer>
+      <div class="footer_bottom"><span>Copyright ©BetaGlowing Shop 2023</a></span></div>
     </footer>
   </div>
 
