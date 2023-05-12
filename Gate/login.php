@@ -32,6 +32,7 @@ if (isset($_POST['masuk'])) {
 <head>
 	<meta charset="UTF-8">
 	<title>BetaGlowing Login Page</title>
+	<link rel="icon" href="../iconwebsite.png" type="image/png">
 	<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css'>
 	<link rel='stylesheet' href='https://unicons.iconscout.com/release/v2.1.9/css/unicons.css'>
 	<link rel="stylesheet" href="style.css">
