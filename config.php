@@ -3,11 +3,9 @@ require 'vendor/autoload.php';
 
 use PhpOffice\PhpSpreadsheet\IOFactory;
 
-$con = mysqli_init();
-mysqli_ssl_set($con, NULL, NULL, "{path to CA cert}", NULL, NULL);
-mysqli_real_connect($conn, "ranolangari.mysql.database.azure.com", "ranolangari", "{23Juni2003}", "{betaglowing}", 3306, MYSQLI_CLIENT_SSL);
-
-session_start();
+$conn = mysqli_init();
+mysqli_ssl_set($conn, NULL, NULL, "{path to CA cert}", NULL, NULL);
+mysqli_real_connect($con, "ranolangari.mysql.database.azure.com", "ranolangari", "{your_password}", "{your_database}", 3306, MYSQLI_CLIENT_SSL);
 
 function getToken($length)
 {
