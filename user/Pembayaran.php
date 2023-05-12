@@ -5,6 +5,31 @@ if (!isset($_SESSION["user"])) {
     exit;
 }
 
+$id = $_SESSION["id"];
+$result = mysqli_query($conn, "SELECT * FROM user WHERE id = $id");
+$row = mysqli_fetch_assoc($result);
+
+if (isset($_POST["checkout"])) {
+    addPesanan($_POST);
+}
+
+if (isset($_POST['UploadBuktiPembayaran'])) {
+    if (uploadBuktiPembayaran($_POST) > 0) {
+        echo "<script>
+        alert('Bukti Pembayaran Berhasil Diupload');
+        document.location.href = 'Pesanan.php';
+        </script>";
+    } else {
+        echo "<script>
+        alert('Bukti Pembayaran Gagal Diupload');
+        document.location.href = 'Pesanan.php';
+        </script>";
+    }
+}
+
+$metodePembayaran = $_POST["metodePembayaran"];
+$tokenPesanan = $_POST["tokenPesanan"];
+
 if (!isset($_POST["id_keranjang"])) {
     echo "<script>
     alert('Mohon Ceklis Produk Yang Ingin Dibeli');
@@ -21,25 +46,7 @@ if (($_POST["metodePembayaran"]) === "Pilih Metode Pembayaran") {
 
 
 
-$id = $_SESSION["id"];
-$result = mysqli_query($conn, "SELECT * FROM user WHERE id = $id");
-$row = mysqli_fetch_assoc($result);
-$metodePembayaran = $_POST["metodePembayaran"];
-$tokenPesanan = $_POST["tokenPesanan"];
 
-if (isset($_POST["checkout"])) {
-    addPesanan($_POST);
-}
-
-if (isset($_POST['UploadBuktiPembayaran'])) {
-    if (uploadBuktiPembayaran($_POST) > 0) {
-        echo "<script>
-        alert('Bukti Pembayaran Berhasil Diupload');
-        document.location.href = 'Pesanan.php';
-        </script>";
-    } else {
-    }
-}
 
 $total = $_POST["id_keranjang"];
 

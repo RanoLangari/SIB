@@ -187,8 +187,20 @@ $rowNotification = mysqli_fetch_assoc($queryTotalNotification);
                                 </tr>
                                 <?php
                                 $id = $_SESSION['id'];
-                                $query = mysqli_query($conn, "SELECT pesanan.nama_penerima, pesanan.no_hp, pesanan.tgl_pesanan, pesanan.id_pesanan, orderan.harga, pesanan.jumlah_pesanan,pesanan.alamat,pesanan.metode_pembayaran,pesanan.bukti_pembayaran,pesanan.status_pembayaran,pesanan.status_pengiriman,pesanan.token_pesanan, GROUP_CONCAT(CONCAT('<li>',orderan.nama,'<b> - </b>', pesanan.jumlah_pesanan,' pcs </li>') SEPARATOR '') AS id_produk, GROUP_CONCAT(CONCAT('<li>','Rp.',orderan.harga * pesanan.jumlah_pesanan,'</li>') SEPARATOR '') AS total_harga FROM pesanan LEFT JOIN orderan ON pesanan.id_produk = orderan.id_produk  GROUP BY pesanan.token_pesanan ORDER BY pesanan.id_pesanan DESC");
-                                while ($row = mysqli_fetch_array($query)) {
+                                mysqli_query($conn, "SET SESSION sql_mode=''");
+                                $query = mysqli_query($conn, "SELECT MIN(pesanan.nama_penerima) AS nama_penerima, pesanan.no_hp, pesanan.tgl_pesanan, pesanan.id_pesanan, 
+                                orderan.harga, pesanan.jumlah_pesanan, pesanan.alamat, pesanan.metode_pembayaran, 
+                                pesanan.bukti_pembayaran, pesanan.status_pembayaran, pesanan.status_pengiriman, 
+                                pesanan.token_pesanan, 
+                                GROUP_CONCAT(CONCAT('<li>',orderan.nama,'<b> - </b>', pesanan.jumlah_pesanan,' pcs </li>') SEPARATOR '') AS id_produk, 
+                                GROUP_CONCAT(CONCAT('<li>','Rp.',orderan.harga * pesanan.jumlah_pesanan,'</li>') SEPARATOR '') AS total_harga 
+                              FROM pesanan 
+                              LEFT JOIN orderan ON pesanan.id_produk = orderan.id_produk  
+                              GROUP BY pesanan.token_pesanan 
+                              ORDER BY pesanan.id_pesanan DESC
+                              
+                              ");
+                                while ($row = mysqli_fetch_assoc($query)) {
                                 ?>
                                     <tr>
                                         <td><?php echo $row['id_produk']; ?></td>
