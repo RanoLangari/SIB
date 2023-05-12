@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title> 404 Page</title>
+    <link rel="icon" href="../iconwebsite.png" type="image/png">
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <link rel="stylesheet" href="style/style.css">
 

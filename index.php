@@ -101,8 +101,8 @@ if (isset($_POST['addToCart'])) {
                 <li><a href="#aboutUs" class="scroll-link">About Us</a></li>
                 <li><a href="#service" class="scroll-link">Services</a></li>
                 <li><a href="#Portfolio" class="scroll-link">Galeri</a></li>
-                <li><a href="#team" class="scroll-link">Testimonials</a></li>
-                <li><a href="#contact" class="scroll-link">Contact</a></li>
+                <!-- <li><a href="#team" class="scroll-link">Testimonials</a></li>
+                <li><a href="#contact" class="scroll-link">Contact</a></li> -->
                 <li style=" justify-content: flex-end; margin-left: 30px;">
                   <?php if (isset($_SESSION['admin'])) : ?>
                     <a href="Admin/profile.php"><i class="fa-solid fa-user" style="margin-right: 10px;"></i>Profile</a>
@@ -325,200 +325,43 @@ if (isset($_POST['addToCart'])) {
 
 
 
-    <!-- Portfolio -->
 
-    <!--/Portfolio -->
-
-    <section class="page_section" id="clients">
-      <!--page_section-->
-      <!--page_section-->
-      <div class="client_logos">
-        <!--client_logos-->
-        <div class="container">
-        </div>
-      </div>
-    </section>
-    <!--client_logos-->
-
-    <section class="page_section team" id="team">
-      <!--main-section team-start-->
-      <div class="container">
-        <h2>Testimonials</h2>
-        <h6>Beberapa Komentar Mengenai Produk Kami</h6>
-
-        <div class="member-area">
-          <div class="row">
-            <div class="col-md-6">
-              <div class="member wow bounceInUp animated">
-                <div class="member-container" data-wow-delay=".1s">
-                  <div class="inner-container">
-                    <div class="author-avatar">
-                      <img class="img-circle" src="img/team_pic1.jpg" alt="Team Menber">
-                    </div><!-- /.author-avatar -->
-
-                    <div class="member-details">
-                      <div class="member-top">
-                        <h4 class="name">
-                          John Doe
-                        </h4>
-                        <span class="designation">
-                          Manager
-                        </span>
-                      </div><!-- /.member-top -->
-
-                      <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin consequat sollicitudin cursus.
-                        Dolor sit amet, consectetur adipiscing elit proin consequat.
-                      </p>
-                      <div class="member-social-link">
-                        <a href="#" class="twitter-btn"><i class="fa fa-twitter"></i></a>
-                        <a href="#" class="facebook-btn"><i class="fa fa-facebook"></i></a>
-                        <a href="#" class="dribbble-btn"><i class="fa fa-dribbble"></i></a>
-                        <a href="#" class="linkedin-btn"><i class="fa fa-linkedin"></i></a>
-                      </div><!-- /.member-social-link -->
-                    </div><!-- /.member-details -->
-                  </div><!-- /.inner-container -->
-                </div><!-- /.member-container -->
-              </div><!-- /.member -->
-            </div>
-
-            <div class="col-md-6">
-              <div class="member wow bounceInUp animated">
-                <div class="member-container" data-wow-delay=".3s">
-                  <div class="inner-container">
-                    <div class="author-avatar">
-                      <img class="img-circle" src="img/team_pic2.jpg" alt="Team Menber">
-                    </div><!-- /.author-avatar -->
-                    <div class="member-details">
-                      <div class="member-top">
-                        <h4 class="name">
-                          Mark lores
-                        </h4>
-                        <span class="designation">
-                          Web Developer
-                        </span>
-                      </div><!-- /.member-top -->
-                      <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin consequat sollicitudin cursus.
-                        Dolor sit amet, consectetur adipiscing elit proin consequat.
-                      </p>
-                      <div class="member-social-link">
-                        <a href="#" class="twitter-btn"><i class="fa fa-twitter"></i></a>
-                        <a href="#" class="facebook-btn"><i class="fa fa-facebook"></i></a>
-                        <a href="#" class="dribbble-btn"><i class="fa fa-dribbble"></i></a>
-                        <a href="#" class="linkedin-btn"><i class="fa fa-linkedin"></i></a>
-                      </div><!-- /.member-social-link -->
-                    </div><!-- /.member-details -->
-                  </div><!-- /.inner-container -->
-                </div><!-- /.member-container -->
-              </div><!-- /.member -->
-            </div>
-
-            <div class="col-md-6">
-              <div class="member wow bounceInUp animated">
-                <div class="member-container" data-wow-delay=".5s">
-                  <div class="inner-container">
-                    <div class="author-avatar">
-                      <img class="img-circle" src="img/team_pic3.jpg" alt="Team Menber">
-                    </div><!-- /.author-avatar -->
-                    <div class="member-details">
-                      <div class="member-top">
-                        <h4 class="name">
-                          Thomas Lere
-                        </h4>
-                        <span class="designation">
-                          UX Designer
-                        </span>
-                      </div><!-- /.member-top -->
-                      <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin consequat sollicitudin cursus.
-                        Dolor sit amet, consectetur adipiscing elit proin consequat.
-                      </p>
-                      <div class="member-social-link">
-                        <a href="#" class="twitter-btn"><i class="fa fa-twitter"></i></a>
-                        <a href="#" class="facebook-btn"><i class="fa fa-facebook"></i></a>
-                        <a href="#" class="dribbble-btn"><i class="fa fa-dribbble"></i></a>
-                        <a href="#" class="linkedin-btn"><i class="fa fa-linkedin"></i></a>
-                      </div><!-- /.member-social-link -->
-                    </div><!-- /.member-details -->
-                  </div><!-- /.inner-container -->
-                </div><!-- /.member-container -->
-              </div><!-- /.member -->
-            </div>
-
-            <div class="col-md-6">
-              <div class="member wow bounceInUp animated">
-                <div class="member-container" data-wow-delay=".7s">
-                  <div class="inner-container">
-                    <div class="author-avatar">
-                      <img class="img-circle" src="img/team_pic4.jpg" alt="Team Menber">
-                    </div><!-- /.author-avatar -->
-                    <div class="member-details">
-                      <div class="member-top">
-                        <h4 class="name">
-                          Grintel Mark
-                        </h4>
-                        <span class="designation">
-                          Web Designer
-                        </span>
-                      </div><!-- /.member-top -->
-                      <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin consequat sollicitudin cursus.
-                        Dolor sit amet, consectetur adipiscing elit proin consequat.
-                      </p>
-                      <div class="member-social-link">
-                        <a href="#" class="twitter-btn"><i class="fa fa-twitter"></i></a>
-                        <a href="#" class="facebook-btn"><i class="fa fa-facebook"></i></a>
-                        <a href="#" class="dribbble-btn"><i class="fa fa-dribbble"></i></a>
-                        <a href="#" class="linkedin-btn"><i class="fa fa-linkedin"></i></a>
-                      </div><!-- /.member-social-link -->
-                    </div><!-- /.member-details -->
-                  </div><!-- /.inner-container -->
-                </div><!-- /.member-container -->
-              </div><!-- /.member -->
-            </div>
-          </div><!-- /.row -->
-        </div>
-
-
-      </div>
-      <!--/Team-->
-      <!--Footer-->
-      <footer class="footer_wrapper" id="contact">
-        <div class="container">
-          <section class="page_section contact" id="contact">
-            <div class="contact_section">
-              <h2>Contact Us</h2>
-              <div class="row">
-                <div class="col-lg-4">
-
-                </div>
-                <div class="col-lg-4">
-
-                </div>
-                <div class="col-lg-4">
-
-                </div>
-              </div>
-            </div>
+    <!--Footer-->
+    <footer class="footer_wrapper" id="contact">
+      <!-- <div class="container">
+        <section class="page_section contact" id="contact">
+          <div class="contact_section">
+            <h2>Contact Us</h2>
             <div class="row">
+              <div class="col-lg-4">
 
-              <div class="col-lg-12 wow fadeInLeft delay-06s">
-                <div class="form">
-                  <input class="input-text" type="text" name="" value="Your Name *" onFocus="if(this.value==this.defaultValue)this.value='';" onBlur="if(this.value=='')this.value=this.defaultValue;">
-                  <input class="input-text" type="text" name="" value="Your E-mail *" onFocus="if(this.value==this.defaultValue)this.value='';" onBlur="if(this.value=='')this.value=this.defaultValue;">
-                  <textarea class="input-text text-area" cols="0" rows="0" onFocus="if(this.value==this.defaultValue)this.value='';" onBlur="if(this.value=='')this.value=this.defaultValue;">Your Message *</textarea>
-                  <input class="input-btn" type="submit" value="send message">
-                </div>
               </div>
+              <div class="col-lg-4">
 
+              </div>
+              <div class="col-lg-4">
+
+              </div>
             </div>
-          </section>
-        </div>
-    </section>
-    <footer>
-      <div class="footer_bottom"><span>Copyright ©BetaGlowing Shop 2023</a></span></div>
-    </footer>
+          </div>
+          <div class="row">
+
+            <div class="col-lg-12 wow fadeInLeft delay-06s">
+              <div class="form">
+                <input class="input-text" type="text" name="" value="Your Name *" onFocus="if(this.value==this.defaultValue)this.value='';" onBlur="if(this.value=='')this.value=this.defaultValue;">
+                <input class="input-text" type="text" name="" value="Your E-mail *" onFocus="if(this.value==this.defaultValue)this.value='';" onBlur="if(this.value=='')this.value=this.defaultValue;">
+                <textarea class="input-text text-area" cols="0" rows="0" onFocus="if(this.value==this.defaultValue)this.value='';" onBlur="if(this.value=='')this.value=this.defaultValue;">Your Message *</textarea>
+                <input class="input-btn" type="submit" value="send message">
+              </div>
+            </div>
+
+          </div>
+        </section>
+      </div>
+      </section> -->
+      <footer>
+        <div class="footer_bottom"><span>Copyright ©BetaGlowing Shop 2023</a></span></div>
+      </footer>
   </div>
 
   <script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
