@@ -5,7 +5,7 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
 
 $conn = mysqli_init();
 mysqli_ssl_set($conn, NULL, NULL, "{path to CA cert}", NULL, NULL);
-mysqli_real_connect($con, "ranolangari.mysql.database.azure.com", "ranolangari", "{your_password}", "{your_database}", 3306, MYSQLI_CLIENT_SSL);
+mysqli_real_connect($con, "ranolangari.mysql.database.azure.com", "ranolangari", "23Juni2003", "betaglowing", 3306, MYSQLI_CLIENT_SSL);
 
 function getToken($length)
 {
