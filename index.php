@@ -305,7 +305,7 @@ if (isset($_POST['addToCart'])) {
           <h2>About Us</h2>
           <div class="inner_section">
             <div class="row">
-              <div class=" col-lg-4 col-md-4 col-sm-4 col-xs-12 pull-right"><img src="./iconwebsite.png" class="img-circle delay-03s animated wow zoomIn" alt=""></div>
+              <div class=" col-lg-4 col-md-4 col-sm-4 col-xs-12 pull-right"><img src="./img/2.png" class="img-circle delay-03s animated wow zoomIn" alt=""></div>
               <div class=" col-lg-7 col-md-7 col-sm-7 col-xs-12 pull-left">
                 <div class=" delay-01s animated fadeInDown wow animated">
                   <h3>Sekilas Mengenai BetaGlowing Shop</h3><br />
@@ -359,7 +359,7 @@ if (isset($_POST['addToCart'])) {
                 <div class="member-container" data-wow-delay=".3s">
                   <div class="inner-container">
                     <div class="author-avatar">
-                      <img class="img-circle" src="./img/team_pic1.jpg" alt="Team Menber">
+                      <img class="img-circle" src="./img/ronal.jpg" alt="Team Menber">
                     </div><!-- /.author-avatar -->
                     <div class="member-details">
                       <div class="member-top">
@@ -379,7 +379,58 @@ if (isset($_POST['addToCart'])) {
               </div><!-- /.member -->
             </div>
           </div><!-- /.row -->
-        </div>
+
+          <div class="col-md-6">
+            <div class="member wow bounceInUp animated">
+              <div class="member-container" data-wow-delay=".5s">
+                <div class="inner-container">
+                  <div class="author-avatar">
+                    <img class="img-circle" src="img/jane.jpg" alt="Team Menber">
+                  </div><!-- /.author-avatar -->
+                  <div class="member-details">
+                    <div class="member-top">
+                      <h4 class="name">
+                        Jane Doven
+                      </h4>
+                      <span class="designation">
+                        Mahasiswa
+                      </span>
+                    </div><!-- /.member-top -->
+                    <p>
+                      Website penjualan skincare ini adalah tempat yang sempurna untuk memenuhi semua kebutuhan skincare saya. Mereka menawarkan produk-produk dari merek-merek terkenal dan berkualitas.Terima kasih banyak atas layanan yang luar biasa!
+                    </p>
+                  </div><!-- /.member-details -->
+                </div><!-- /.inner-container -->
+              </div><!-- /.member-container -->
+            </div><!-- /.member -->
+          </div>
+
+          <div class="col-md-6">
+            <div class="member wow bounceInUp animated">
+              <div class="member-container" data-wow-delay=".7s">
+                <div class="inner-container">
+                  <div class="author-avatar">
+                    <img class="img-circle" src="img/team_pic4.jpg" alt="Team Menber">
+                  </div><!-- /.author-avatar -->
+                  <div class="member-details">
+                    <div class="member-top">
+                      <h4 class="name">
+                        Tasya Bhia
+                      </h4>
+                      <span class="designation">
+                        Mahasiswa
+                      </span>
+                    </div><!-- /.member-top -->
+                    <p>
+                      Saya sangat senang dengan produk yang saya beli dari website ini. Produk-produk tersebut sangat berkualitas dan harganya terjangkau. Saya akan merekomendasikan website ini kepada teman-teman saya.
+                    </p>
+                  </div><!-- /.member-details -->
+                </div><!-- /.inner-container -->
+              </div><!-- /.member-container -->
+            </div><!-- /.member -->
+          </div>
+        </div><!-- /.row -->
+
 
 
       </div>
