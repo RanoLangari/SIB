@@ -118,118 +118,114 @@ if (isset($_POST["hapusDataOrder"])) {
                     </div>
                 </nav>
                 <div class="container-fluid">
-                    <div class="col-lg-9">
-                        <div class="row mb-3">
-                            <div class="col">
-                                <div class="card shadow mb-3">
-                                    <div class="card shadow">
-                                        <div class="card-header py-3">
-                                            <p class="text-primary m-0 fw-bold">Keranjang</p>
-                                        </div>
-                                        <div class="card-body">
-                                            <div class="row">
-                                                <div class="table-responsive table mt-9" id="dataTable" role="grid" aria-describedby="dataTable_info" style="width:100%;">
-                                                    <table id="example" class="table table-bordered" style="width:100%">
-                                                        <thead>
-                                                            <tr>
-                                                                <th>Nama Produk</th>
-                                                                <th>Jumlah</th>
-                                                                <th>Harga</th>
-                                                                <th>Total</th>
-                                                                <th>Action</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <?php while ($myKeranjang = mysqli_fetch_assoc($dataKeranjang)) : ?>
-                                                                <?php
-                                                                $totalHarga = $myKeranjang["jumlah_order"] * $myKeranjang["harga"]
-                                                                ?>
-                                                                <tr>
-                                                                    <td><?= $myKeranjang["nama"] ?></td>
-                                                                    <td>
-                                                                        <?= $myKeranjang["jumlah_order"] ?> || <button data-toggle="modal" data-target="#edit<?= $myKeranjang["id_keranjang"]; ?>" class="btn btn-warning"><i class="fa fa-pen fa-xs"></i></button>
-                                                                    </td>
-                                                                    <td>Rp.<?= $myKeranjang["harga"] ?></td>
-                                                                    <td>Rp.<?= $totalHarga  ?></td>
-                                                                    <td>
-                                                                        <button data-toggle="modal" data-target="#hapus<?= $myKeranjang["id_keranjang"]; ?>" class="btn btn-danger"><i class="fa fa-trash fa-xs"></i></button>
-                                                                    </td>
-                                                                </tr>
-                                                                <!-- Modal Edit Data -->
-                                                                <div class="modal fade" id="edit<?= $myKeranjang["id_keranjang"]; ?>">
-                                                                    <div class="modal-dialog modal-dialog-centered">
-                                                                        <div class="modal-content" style="background-color:white;">
-                                                                            <form method="post" enctype="multipart/form-data">
+                    <div class="col">
 
-                                                                                <!-- Header -->
-                                                                                <div class="modal-header">
-                                                                                    <h4 class="modal-title">UBAH DATA</h4>
-                                                                                </div>
-                                                                                <!-- Body -->
-                                                                                <div class="modal-body">
-                                                                                    <input type="hidden" name="id_barang" value="<?= $myKeranjang["id_keranjang"]; ?>">
-                                                                                    <div class="form-group">
-                                                                                        <label for="nama">Nama</label>
-                                                                                        <input style="background-color:white;" type="text" id="nama" name="nama_barang" class="form-control" value="<?= $myKeranjang['nama'] ?>" readonly>
-                                                                                    </div>
-                                                                                    <div class="form-group">
-                                                                                        <label for="jumlah_order">Jumlah</label>
-                                                                                        <input type="number" id="jumlah_order" name="jumlah_order" class="form-control" value="<?= $myKeranjang['jumlah_order'] ?>">
-                                                                                    </div>
-                                                                                </div>
+                        <div class="card shadow mb-3">
+                            <div class="card shadow">
+                                <div class="card-header py-3">
+                                    <p class="text-primary m-0 fw-bold">Keranjang</p>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="table-responsive table mt-9" id="dataTable" role="grid" aria-describedby="dataTable_info" style="width:100%;">
+                                            <table id="example" class="table table-bordered" style="width:100%">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Nama Produk</th>
+                                                        <th>Jumlah</th>
+                                                        <th>Harga</th>
+                                                        <th>Total</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php while ($myKeranjang = mysqli_fetch_assoc($dataKeranjang)) : ?>
+                                                        <?php
+                                                        $totalHarga = $myKeranjang["jumlah_order"] * $myKeranjang["harga"]
+                                                        ?>
+                                                        <tr>
+                                                            <td><?= $myKeranjang["nama"] ?></td>
+                                                            <td>
+                                                                <?= $myKeranjang["jumlah_order"] ?> || <button data-toggle="modal" data-target="#edit<?= $myKeranjang["id_keranjang"]; ?>" class="btn btn-warning"><i class="fa fa-pen fa-xs"></i></button>
+                                                            </td>
+                                                            <td>Rp.<?= $myKeranjang["harga"] ?></td>
+                                                            <td>Rp.<?= $totalHarga  ?></td>
+                                                            <td>
+                                                                <button data-toggle="modal" data-target="#hapus<?= $myKeranjang["id_keranjang"]; ?>" class="btn btn-danger"><i class="fa fa-trash fa-xs"></i></button>
+                                                            </td>
+                                                        </tr>
+                                                        <!-- Modal Edit Data -->
+                                                        <div class="modal fade" id="edit<?= $myKeranjang["id_keranjang"]; ?>">
+                                                            <div class="modal-dialog modal-dialog-centered">
+                                                                <div class="modal-content" style="background-color:white;">
+                                                                    <form method="post" enctype="multipart/form-data">
 
-                                                                                <!-- Modal footer -->
-                                                                                <div class="modal-footer">
-                                                                                    <button type="button" class="btn btn-danger" data-dismiss="modal" style="border-radius: 0;">Batal</button>
-                                                                                    <button type="submit" class="btn btn-warning" name="UbahDataOrder" style="border-radius: 0;">Ubah</button>
-                                                                                </div>
-                                                                            </form>
+                                                                        <!-- Header -->
+                                                                        <div class="modal-header">
+                                                                            <h4 class="modal-title">UBAH DATA</h4>
                                                                         </div>
-                                                                    </div>
-                                                                </div>
-                                                                <!-- End Modal Edit Data -->
-                                                                <!-- Modal hapus Data -->
-                                                                <div class="modal fade" id="hapus<?= $myKeranjang["id_keranjang"]; ?>">
-                                                                    <div class="modal-dialog modal-dialog-centered">
-                                                                        <div class="modal-content" style="background-color:white;">
-                                                                            <form method="post">
-
-                                                                                <!-- Header -->
-                                                                                <div class="modal-header">
-                                                                                    <h4 class="modal-title">HAPUS DATA
-                                                                                        <?= $myKeranjang['nama'] ?> -
-                                                                                    </h4>
-                                                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                                                </div>
-
-                                                                                <!-- Modal body -->
-                                                                                <div class="modal-body">
-                                                                                    Anda yakin ingin menghapus data ini?
-                                                                                    <input type="hidden" name="id_barang" value="<?= $myKeranjang['id_keranjang']; ?>">
-                                                                                </div>
-
-                                                                                <!-- Modal footer -->
-                                                                                <div class="modal-footer">
-                                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal" style="border-radius: 0;">Batal</button>
-                                                                                    <button type="submit" class="btn btn-danger" name="hapusDataOrder" style="border-radius: 0;">Hapus</button>
-                                                                                </div>
-                                                                            </form>
+                                                                        <!-- Body -->
+                                                                        <div class="modal-body">
+                                                                            <input type="hidden" name="id_barang" value="<?= $myKeranjang["id_keranjang"]; ?>">
+                                                                            <div class="form-group">
+                                                                                <label for="nama">Nama</label>
+                                                                                <input style="background-color:white;" type="text" id="nama" name="nama_barang" class="form-control" value="<?= $myKeranjang['nama'] ?>" readonly>
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                <label for="jumlah_order">Jumlah</label>
+                                                                                <input type="number" id="jumlah_order" name="jumlah_order" class="form-control" value="<?= $myKeranjang['jumlah_order'] ?>">
+                                                                            </div>
                                                                         </div>
-                                                                    </div>
+
+                                                                        <!-- Modal footer -->
+                                                                        <div class="modal-footer">
+                                                                            <button type="button" class="btn btn-danger" data-dismiss="modal" style="border-radius: 0;">Batal</button>
+                                                                            <button type="submit" class="btn btn-warning" name="UbahDataOrder" style="border-radius: 0;">Ubah</button>
+                                                                        </div>
+                                                                    </form>
                                                                 </div>
-                                                                <!-- End Modal hapus Data -->
-                                                            <?php endwhile; ?>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
+                                                            </div>
+                                                        </div>
+                                                        <!-- End Modal Edit Data -->
+                                                        <!-- Modal hapus Data -->
+                                                        <div class="modal fade" id="hapus<?= $myKeranjang["id_keranjang"]; ?>">
+                                                            <div class="modal-dialog modal-dialog-centered">
+                                                                <div class="modal-content" style="background-color:white;">
+                                                                    <form method="post">
+
+                                                                        <!-- Header -->
+                                                                        <div class="modal-header">
+                                                                            <h4 class="modal-title">HAPUS DATA
+                                                                                <?= $myKeranjang['nama'] ?> -
+                                                                            </h4>
+                                                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                                        </div>
+
+                                                                        <!-- Modal body -->
+                                                                        <div class="modal-body">
+                                                                            Anda yakin ingin menghapus data ini?
+                                                                            <input type="hidden" name="id_barang" value="<?= $myKeranjang['id_keranjang']; ?>">
+                                                                        </div>
+
+                                                                        <!-- Modal footer -->
+                                                                        <div class="modal-footer">
+                                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal" style="border-radius: 0;">Batal</button>
+                                                                            <button type="submit" class="btn btn-danger" name="hapusDataOrder" style="border-radius: 0;">Hapus</button>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!-- End Modal hapus Data -->
+                                                    <?php endwhile; ?>
+                                                </tbody>
+                                            </table>
                                         </div>
-                                        <!-- End Table Data Alumni -->
                                     </div>
                                 </div>
+                                <!-- End Table Data Alumni -->
                             </div>
                         </div>
-
                     </div>
                     <?php
                     $Keranjang = mysqli_query($conn, "SELECT * FROM keranjang 

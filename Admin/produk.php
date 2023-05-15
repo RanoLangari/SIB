@@ -238,7 +238,7 @@ $rowNotification = mysqli_fetch_assoc($queryTotalNotification);
                                                                         <td><?= $brng["harga"] ?></td>
                                                                         <td><?= $brng["kategori"] ?></td>
                                                                         <td>
-                                                                            <button data-toggle="modal" data-target="#edit<?= $brng["id_produk"]; ?>" class="btn btn-warning"><i class="fa fa-pen"></i></button> ||
+                                                                            <button data-toggle="modal" data-target="#edit<?= $brng["id_produk"]; ?>" class="btn btn-warning"><i class="fa fa-pen"></i></button>
                                                                             <button data-toggle="modal" data-target="#hapus<?= $brng["id_produk"]; ?>" class="btn btn-danger"><i class="fa fa-trash"></i></button>
                                                                         </td>
 

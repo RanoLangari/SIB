@@ -173,7 +173,7 @@ $rowNotification = mysqli_fetch_assoc($queryTotalNotification);
                     </div>
                 </nav>
                 <div class="container-fluid">
-                    <div class="col-lg-9">
+                    <div class="col">
                         <div class="row mb-3">
                             <div class="col">
                                 <div class="card shadow mb-3">

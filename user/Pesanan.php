@@ -114,7 +114,7 @@ if (isset($_POST['ubahBuktiPembayaran'])) {
                     </div>
                 </nav>
                 <div class="container-fluid">
-                    <div class="col-lg-9">
+                    <div class="col">
                         <div class="row mb-3">
                             <div class="col">
                                 <div class="card shadow mb-3">
@@ -238,77 +238,81 @@ if (isset($_POST['ubahBuktiPembayaran'])) {
                         </div>
 
                     </div>
-                    <footer class="bg-white sticky-footer">
-                        <div class="container my-auto">
-                            <div class="text-center my-auto copyright"><span>Copyright ©BetaGlowing Shop 2023</span></div>
-                        </div>
-                    </footer>
-                </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+                    <!-- End of Main Content -->
+                </div>
+                <!-- End of Content Wrapper -->
             </div>
+            <footer class="bg-white sticky-footer">
+                <div class="container my-auto">
+                    <div class="text-center my-auto copyright"><span>Copyright ©BetaGlowing Shop 2023</span></div>
+                </div>
+            </footer>
+        </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+    </div>
 
 
-            <script>
-                $(document).ready(function() {
-                    $('.totalHarga').each(function() {
-                        var total = 0,
-                            harga = $(this).closest('tr').find('.harga').text(),
-                            jumlah = $(this).closest('tr').find('.jumlah').text();
-                        total = harga * jumlah;
-                        $(this).text(total);
-                    });
+    <script>
+        $(document).ready(function() {
+            $('.totalHarga').each(function() {
+                var total = 0,
+                    harga = $(this).closest('tr').find('.harga').text(),
+                    jumlah = $(this).closest('tr').find('.jumlah').text();
+                total = harga * jumlah;
+                $(this).text(total);
+            });
+        });
+    </script>
+    <script>
+        const zoom = document.querySelectorAll('.zoom');
+
+        zoom.forEach(function(img) {
+            img.addEventListener('click', function() {
+                // Buat elemen <div> baru untuk menampilkan gambar yang diperbesar
+                const fullscreen = document.createElement('div');
+                fullscreen.classList.add('fullscreen');
+
+                // Buat elemen <img> baru dengan sumber gambar yang sama seperti gambar yang diperbesar
+                const fullscreenImg = document.createElement('img');
+                fullscreenImg.src = this.src;
+
+                // Tambahkan elemen <img> ke elemen <div>
+                fullscreen.appendChild(fullscreenImg);
+
+                // Tambahkan elemen <div> ke body
+                document.body.appendChild(fullscreen);
+
+                // Hilangkan scrollbar pada body
+                document.body.style.overflow = 'hidden';
+
+                // Tambahkan event listener untuk menghapus elemen <div> ketika diklik atau esc key ditekan
+                fullscreen.addEventListener('click', function() {
+                    fullscreen.remove();
+                    document.body.style.overflow = '';
                 });
-            </script>
-            <script>
-                const zoom = document.querySelectorAll('.zoom');
 
-                zoom.forEach(function(img) {
-                    img.addEventListener('click', function() {
-                        // Buat elemen <div> baru untuk menampilkan gambar yang diperbesar
-                        const fullscreen = document.createElement('div');
-                        fullscreen.classList.add('fullscreen');
-
-                        // Buat elemen <img> baru dengan sumber gambar yang sama seperti gambar yang diperbesar
-                        const fullscreenImg = document.createElement('img');
-                        fullscreenImg.src = this.src;
-
-                        // Tambahkan elemen <img> ke elemen <div>
-                        fullscreen.appendChild(fullscreenImg);
-
-                        // Tambahkan elemen <div> ke body
-                        document.body.appendChild(fullscreen);
-
-                        // Hilangkan scrollbar pada body
-                        document.body.style.overflow = 'hidden';
-
-                        // Tambahkan event listener untuk menghapus elemen <div> ketika diklik atau esc key ditekan
-                        fullscreen.addEventListener('click', function() {
-                            fullscreen.remove();
-                            document.body.style.overflow = '';
-                        });
-
-                        document.addEventListener('keyup', function(e) {
-                            if (e.key === 'Escape') {
-                                fullscreen.remove();
-                                document.body.style.overflow = '';
-                            }
-                        });
-                    });
+                document.addEventListener('keyup', function(e) {
+                    if (e.key === 'Escape') {
+                        fullscreen.remove();
+                        document.body.style.overflow = '';
+                    }
                 });
-            </script>
-            <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-            <script src="assets/js/bs-init.js"></script>
-            <script src="assets/js/theme.js"></script>
-            <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-            <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-            <script src=https://code.jquery.com/jquery-3.5.1.js></script>
-            <script src=https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js></script>
-            <script src=https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js></script>
-            <script>
-                $(document).ready(function() {
-                    $('#example').DataTable();
-                });
-            </script>
+            });
+        });
+    </script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/bs-init.js"></script>
+    <script src="assets/js/theme.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src=https://code.jquery.com/jquery-3.5.1.js></script>
+    <script src=https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js></script>
+    <script src=https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js></script>
+    <script>
+        $(document).ready(function() {
+            $('#example').DataTable();
+        });
+    </script>
 </body>
 
 </html>
