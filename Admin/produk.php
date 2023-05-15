@@ -269,7 +269,7 @@ $rowNotification = mysqli_fetch_assoc($queryTotalNotification);
                                                                     <option value="<?= $brng['kategori'] ?>" selected><?= $brng['kategori'] ?></option>
                                                                     <option value="serum">Serum</option>
                                                                     <option value="sunscreen">Sunscreen</option>
-                                                                    <option value="pelembab">Pelembab</option>
+                                                                    <option value="lotion">Lotion</option>
                                                                     <option value="cleanser">Cleanser</option>
                                                                     <option value="toner">Toner</option>
                                                                 <?php endif; ?>

@@ -213,8 +213,8 @@ if (isset($_POST['addToCart'])) {
             <li><a class="" href="#" data-filter=".sunscreen">
                 <h5>Sunscreen</h5>
               </a></li>
-            <li><a class="" href="#" data-filter=".pelembab">
-                <h5>Pelembab</h5>
+            <li><a class="" href="#" data-filter=".lotion">
+                <h5>Lotion</h5>
               </a></li>
             <li><a class="" href="#" data-filter=".toner">
                 <h5>Toner</h5>
