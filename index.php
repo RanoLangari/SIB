@@ -63,6 +63,9 @@ if (isset($_POST['addToCart'])) {
   <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" crossorigin="anonymous" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@1,200&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap" rel="stylesheet">
   <style>
     .cart__count {
@@ -238,7 +241,7 @@ if (isset($_POST['addToCart'])) {
 
                 <div class="row mb-3">
                   <div class="produkName">
-                    <h4 style="font-family: 'Roboto Slab', serif;"><?= $dataBarang['nama'] ?></h4>
+                    <h4 style="font-family: 'Roboto Mono', monospace; color:#000;"><?= $dataBarang['nama'] ?></h4>
                   </div>
                   <div class="produkPrice">
                     <h4 style="font-family: 'Roboto Slab', serif;">Rp. <?= number_format($dataBarang['harga'], 0, ',', '.') ?></h4>
@@ -250,7 +253,7 @@ if (isset($_POST['addToCart'])) {
                       <input type="hidden" name="harga" value="<?= $dataBarang['harga'] ?>">
                       <input type="hidden" name="id_user" value="<?= $_SESSION['id'] ?>">
                       <!-- button add to chart -->
-                      <button class="btn btn-info outline1" type="submit" name="addToCart" style="margin-left: 10px; margin-top:10px; "> Tambahkan Ke Keranjang </button>
+                      <button class="btn btn-info outline1" type="submit" name="addToCart" style="margin-left: 17px; margin-top:10px; "> Tambahkan Ke Keranjang </button>
                       <!-- end button add to chart -->
                     </form>
 
@@ -309,7 +312,7 @@ if (isset($_POST['addToCart'])) {
               <div class=" col-lg-7 col-md-7 col-sm-7 col-xs-12 pull-left">
                 <div class=" delay-01s animated fadeInDown wow animated">
                   <h3>Sekilas Mengenai BetaGlowing Shop</h3><br />
-                  <p>Kami adalah toko skincare yang berkomitmen untuk menyediakan produk-produk skincare berkualitas tinggi dan aman untuk kulit. Dengan pengalaman lebih dari 10 tahun di industri skincare, kami memahami betapa pentingnya perawatan kulit yang tepat untuk mencapai kulit yang sehat dan bercahaya. Produk-produk kami terdiri dari bahan-bahan alami yang dipilih dengan cermat untuk memberikan hasil yang optimal dan memenuhi kebutuhan semua jenis kulit. Kami bangga dapat memberikan solusi perawatan kulit yang efektif dan terjangkau bagi pelanggan kami.</p>
+                  <p>Kami adalah toko skincare yang berkomitmen untuk menyediakan produk-produk skincare berkualitas tinggi dan aman untuk kulit.Kami memahami betapa pentingnya perawatan kulit yang tepat untuk mencapai kulit yang sehat dan bercahaya. Produk-produk kami terdiri dari bahan-bahan alami yang dipilih dengan cermat untuk memberikan hasil yang optimal dan memenuhi kebutuhan semua jenis kulit. Kami bangga dapat memberikan solusi perawatan kulit yang efektif dan terjangkau bagi pelanggan kami.</p>
                 </div>
               </div>
             </div>
@@ -430,56 +433,54 @@ if (isset($_POST['addToCart'])) {
             </div><!-- /.member -->
           </div>
         </div><!-- /.row -->
-
-
-
       </div>
+    </section>
 
 
-      <!--Service-->
-      <section id="service" style="background-color:#abd1f0;">
-        <div class="container">
-          <h2>Services</h2>
-          <div class="service_wrapper">
-            <div class="row">
-              <div class="col-lg-4">
-                <div class="service_block">
-                  <div class="service_icon icon2  delay-03s animated wow zoomIn"> <span><i class="fa fa-cart-plus"></i></span>
-                  </div>
-                  <h3 class="animated fadeInUp wow">Tambahkan Ke Keranjang</h3>
-                  <p class="animated fadeInDown wow">pilih produk yang anda ingin beli, setelah itu tambahkan ke keranjang
-                  </p>
+    <!--Service-->
+    <section id="service" style="background-color:#abd1f0;">
+      <div class="container">
+        <h2>Services</h2>
+        <div class="service_wrapper">
+          <div class="row">
+            <div class="col-lg-4">
+              <div class="service_block">
+                <div class="service_icon icon2  delay-03s animated wow zoomIn"> <span><i class="fa fa-cart-plus"></i></span>
                 </div>
+                <h3 class="animated fadeInUp wow">Tambahkan Ke Keranjang</h3>
+                <p class="animated fadeInDown wow">pilih produk yang anda ingin beli, setelah itu tambahkan ke keranjang
+                </p>
               </div>
-              <div class="col-lg-4 borderLeft">
-                <div class="service_block">
-                  <div class="service_icon delay-03s animated wow  zoomIn"> <span><i class="fa fa-credit-card"></i></span>
-                  </div>
-                  <h3 class="animated fadeInUp wow">Pembayaran Mudah</h3>
-                  <p class="animated fadeInDown wow">Nikmati Pembayaran Yang Cepat dan Mudah</p>
+            </div>
+            <div class="col-lg-4 borderLeft">
+              <div class="service_block">
+                <div class="service_icon delay-03s animated wow  zoomIn"> <span><i class="fa fa-credit-card"></i></span>
                 </div>
+                <h3 class="animated fadeInUp wow">Pembayaran Mudah</h3>
+                <p class="animated fadeInDown wow">Nikmati Pembayaran Yang Cepat dan Mudah</p>
               </div>
-              <div class="col-lg-4 borderLeft">
-                <div class="service_block">
-                  <div class="service_icon icon3  delay-03s animated wow zoomIn"> <span><i class="fa fa-truck"></i></span>
-                  </div>
-                  <h3 class="animated fadeInUp wow">Fast Delivery</h3>
-                  <p class="animated fadeInDown wow">Pengiriman Cepat, Secepat Badai Seroja</p>
+            </div>
+            <div class="col-lg-4 borderLeft">
+              <div class="service_block">
+                <div class="service_icon icon3  delay-03s animated wow zoomIn"> <span><i class="fa fa-truck"></i></span>
                 </div>
+                <h3 class="animated fadeInUp wow">Fast Delivery</h3>
+                <p class="animated fadeInDown wow">Pengiriman Cepat, Secepat Badai Seroja</p>
               </div>
             </div>
           </div>
         </div>
-      </section>
-      <!--Service-->
+      </div>
+    </section>
+    <!--Service-->
 
 
 
 
 
-      <!--Footer-->
-      <footer class="footer_wrapper" id="contact">
-        <!-- <div class="container">
+    <!--Footer-->
+    <footer class="footer_wrapper" id="contact">
+      <!-- <div class="container">
         <section class="page_section contact" id="contact">
           <div class="contact_section">
             <h2>Contact Us</h2>
@@ -510,10 +511,13 @@ if (isset($_POST['addToCart'])) {
         </section>
       </div>
       </section> -->
-        <footer>
-          <div class="footer_bottom"><span>Copyright ©BetaGlowing Shop 2023</a></span></div>
-        </footer>
   </div>
+
+  </div>
+  <footer style="background-color: #000;">
+    <div class="footer_bottom"><span>Copyright ©BetaGlowing Shop 2023</span></div>
+  </footer>
+
 
   <script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
   <script type="text/javascript" src="js/bootstrap.min.js"></script>
