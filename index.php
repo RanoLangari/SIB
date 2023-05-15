@@ -253,7 +253,7 @@ if (isset($_POST['addToCart'])) {
                       <input type="hidden" name="harga" value="<?= $dataBarang['harga'] ?>">
                       <input type="hidden" name="id_user" value="<?= $_SESSION['id'] ?>">
                       <!-- button add to chart -->
-                      <button class="btn btn-info outline1" type="submit" name="addToCart" style="margin-left: 17px; margin-top:10px; "> Tambahkan Ke Keranjang </button>
+                      <button class="btn btn-info outline1" type="submit" name="addToCart" style="margin-left: 13%; margin-right:50%; margin-top:10px; "> Tambahkan Ke Keranjang </button>
                       <!-- end button add to chart -->
                     </form>
 
