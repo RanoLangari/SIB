@@ -172,7 +172,7 @@ if (isset($_POST['addToCart'])) {
                   <h2 style="font-family: 'Gloock', serif;">Ingin Kulitmu Lebih Bersinar dan Sehat?
                   </h2>
                   <p>Temukan produk skincare terbaik dari kami dan nikmati hasilnya dalam waktu singkat!</p>
-                  <a href="#service" class="read_more2">Read more</a>
+                  <a href="#Portfolio" class="read_more2">Read more</a>
                 </div>
               </div>
               <div>
@@ -263,14 +263,12 @@ if (isset($_POST['addToCart'])) {
             <?php while ($dataBarang = mysqli_fetch_assoc($barang)) : ?>
               <div style="position: absolute; left: 0px; top: 0px; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1); width: 337px; opacity: 1;" class="portfolio-item one-four   <?= $dataBarang['kategori'] ?> isotope-item">
                 <div class="portfolio_img"> <img style="width: 350px ; height: 260px; margin-top: 25px; " src="Admin/assets/img/profile/<?= $dataBarang['gambar'] ?>" alt="Portfolio 1"> </div>
-                <div class="item_overlay" style="width: 350px ; height: 260px; margin-top: 25px; ">
-                  <div class="item_info">
-                    <h4 class="project_name" style="font-family: 'Roboto Slab', serif;"><?= $dataBarang['nama'] ?></h4>
-                    <h4 style="color: white;">Rp.<?= $dataBarang['harga'] ?></h4>
-                    <form action="" method="post">
-                      <input type="hidden" name="id_barang" value="<?= $dataBarang['id_produk'] ?>">
-                      <input type="hidden" name="harga" value="<?= $dataBarang['harga'] ?>">
-                    </form>
+                <div class="row mb-3">
+                  <div class="produkName">
+                    <h4 style="font-family: 'Roboto Slab', serif;"><?= $dataBarang['nama'] ?></h4>
+                  </div>
+                  <div class="produkPrice">
+                    <h4 style="font-family: 'Roboto Slab', serif;">Rp. <?= number_format($dataBarang['harga'], 0, ',', '.') ?></h4>
                   </div>
                 </div>
               </div>
@@ -313,16 +311,10 @@ if (isset($_POST['addToCart'])) {
                   <h3>Sekilas Mengenai BetaGlowing Shop</h3><br />
                   <p>Kami adalah toko skincare yang berkomitmen untuk menyediakan produk-produk skincare berkualitas tinggi dan aman untuk kulit. Dengan pengalaman lebih dari 10 tahun di industri skincare, kami memahami betapa pentingnya perawatan kulit yang tepat untuk mencapai kulit yang sehat dan bercahaya. Produk-produk kami terdiri dari bahan-bahan alami yang dipilih dengan cermat untuk memberikan hasil yang optimal dan memenuhi kebutuhan semua jenis kulit. Kami bangga dapat memberikan solusi perawatan kulit yang efektif dan terjangkau bagi pelanggan kami.</p>
                 </div>
-                <div class="work_bottom"> <span>Ingin Tau Lebih??..</span> <a href="#contact" class="contact_btn">Contact
-                    Us</a> </div>
               </div>
-
             </div>
-
-
           </div>
         </div>
-      </div>
     </section>
     <!--Aboutus-->
 
