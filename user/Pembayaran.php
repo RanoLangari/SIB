@@ -122,7 +122,7 @@ $totalBayar = array_sum($total_harga);
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="alert alert-success">
-                                    <p>Terimakasih telah berbelanja di toko kami, silahkan lakukan pembayaran dengan metode COD (Cash On Delivery) dengan membayar langsung kepada kurir kami saat barang sampai.</p>
+                                    <p>Terimakasih telah berbelanja di toko kami, silahkan lakukan pembayaran dengan metode COD (Cash On Delivery) dengan membayar sebesar <strong>Rp.<?= number_format($totalBayar, 0, ',', '.') ?></strong> langsung kepada kurir kami saat barang sampai.</p>
                                     <p>Setelah melakukan pembayaran, silahkan upload bukti pembayaran di bawah, informasi mengenai pemesanan dapat dilihat di <a href="Pesanan.php">Halaman Pemesanan</a> yang terdapat di sidebar</p>
                                 </div>
                             </div>
@@ -133,10 +133,7 @@ $totalBayar = array_sum($total_harga);
                             <div class="col-md-12">
                                 <div class="alert alert-success">
                                     <p>Terimakasih telah berbelanja di toko kami, Mohon Lakukan Pembayaran sebesar <strong>Rp.<?= number_format($totalBayar, 0, ',', '.') ?></strong> dengan metode transfer ke Nomor Rekening bank berikut :</p>
-                                    <p>Bank BCA : 1234567890</p>
-                                    <p>Bank Mandiri : 0987654321</p>
-                                    <p>Bank BNI : 1234567890</p>
-                                    <p>Bank BRI : 0987654321</p>
+                                    <p>Bank BRI : 786201005881503 </p>
                                     <p>Setelah melakukan pembayaran, silahkan upload bukti pembayaran di bawah, informasi mengenai pemesanan dapat dilihat di <a href="Pesanan.php">Halaman Pemesanan</a> yang terdapat di sidebar</p>
                                 </div>
                             </div>
@@ -171,7 +168,7 @@ $totalBayar = array_sum($total_harga);
                                     <h3 class="text-center">Pembayaran</h3>
                                     <!-- text danger -->
                                     <p>Terimakasih telah berbelanja di toko kami, Mohon Lakukan Pembayaran sebesar <strong>Rp.<?= number_format($totalBayar, 0, ',', '.') ?></strong> dengan metode transfer ke Nomor Dana berikut :</p>
-                                    <p>Dana : 1234567890</p>
+                                    <p>Dana : 081337184538</p>
                                     <p>Setelah melakukan pembayaran, silahkan upload bukti pembayaran di bawah, informasi mengenai pemesanan dapat dilihat di <a href="Pesanan.php">Halaman Pemesanan</a> yang terdapat di sidebar</p>
                                 </div>
                             </div>
