@@ -174,7 +174,7 @@ $rowNotification = mysqli_fetch_assoc($queryTotalNotification);
                             <table class="table table-bordered">
                                 <tr>
                                     <th class="w-25">Produk Yang Diorder</th>
-                                    <th class="w-25">Total Harga Per Produk</th>
+                                    <th class="w-25"> Harga Satuan</th>
                                     <th>Total Harga</th>
                                     <th>Nama Penerima</th>
                                     <th>No. Telepon</th>
