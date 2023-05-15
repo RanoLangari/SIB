@@ -123,6 +123,11 @@ $rowNotification = mysqli_fetch_assoc($queryTotalNotification);
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap">
     <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
+    <script defer src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script defer src=https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js></script>
+    <script defer src=https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js></script>
 </head>
 
 <body id="page-top">
@@ -188,235 +193,262 @@ $rowNotification = mysqli_fetch_assoc($queryTotalNotification);
                     </div>
                 </nav>
                 <div class="container-fluid">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" style="margin-bottom: 20px;">
+                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal" style="margin-bottom: 20px;margin-left: 18px;">
                         Tambah Data
                     </button>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModalExcel" style="margin-bottom: 20px; margin-left: 20px;">
+                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModalExcel" style="margin-bottom: 20px; margin-left: 10px;">
                         Tambah Data Via EXCEL
                     </button>
                     <div class="table-responsive">
-                        <table class="table">
-                            <thead class="thead-dark">
-                                <tr style="text-align: center;">
-                                    <th scope="col">No</th>
-                                    <th scope="col">Nama</th>
-                                    <th scope="col">Gambar</th>
-                                    <th scope="col">Jumlah</th>
-                                    <th scope="col">Harga</th>
-                                    <th scope="col">Kategori</th>
-                                    <th scope="col">Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php $i = 1; ?>
-
-                                <?php foreach ($order as $brng) : ?>
-                                    <tr style="text-align: center;">
-                                        <td><?= $i; ?></td>
-                                        <td><?= $brng["nama"] ?></td>
-                                        <td>
-                                            <?php echo "<img src='assets/img/profile/" . $brng['gambar'] . "' width='100' height='100'>"; ?>
-                                        </td>
-                                        <td><?= $brng["jumlah"] ?></td>
-                                        <td><?= $brng["harga"] ?></td>
-                                        <td><?= $brng["kategori"] ?></td>
-                                        <td>
-                                            <button data-toggle="modal" data-target="#edit<?= $brng["id_produk"]; ?>" class="btn btn-warning"><i class="fa fa-pen"></i></button> ||
-                                            <button data-toggle="modal" data-target="#hapus<?= $brng["id_produk"]; ?>" class="btn btn-danger"><i class="fa fa-trash"></i></button>
-                                        </td>
-
-                                    </tr>
-                                    <?php $i++; ?>
-                                    <!-- Modal Edit Data -->
-                                    <div class="modal fade" id="edit<?= $brng["id_produk"]; ?>">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <form method="post" enctype="multipart/form-data">
-
-                                                    <!-- Header -->
-                                                    <div class="modal-header">
-                                                        <h4 class="modal-title">UBAH DATA</h4>
-                                                    </div>
-                                                    <!-- Body -->
-                                                    <div class="modal-body">
-                                                        <div class="form-group">
-                                                            <label>Nama</label>
-                                                            <input type="text" id="nama" name="nama" class="form-control" value="<?= $brng['nama'] ?>">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label>Gambar</label>
-                                                            <input type="file" id="gambar" name="gambar" class="form-control">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label>Jumlah</label>
-                                                            <input type="text" id="jumlah" name="jumlah" class="form-control" value="<?= $brng['jumlah'] ?>">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label>Harga</label>
-                                                            <input type="text" id="harga" name="harga" class="form-control" value="<?= $brng['harga'] ?>">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label>Kategori</label>
-                                                            <select name="kategori" class="custom-select form-control">
-                                                                <?php if ($brng['kategori'] == '') : ?>
-                                                                    <option value="" selected>Pilih Kategori</option>
-                                                                    <option value="serum">Serum</option>
-                                                                    <option value="sunscreen">Sunscreen</option>
-                                                                    <option value="lotion">Lotion</option>
-                                                                    <option value="cleanser">Cleanser</option>
-                                                                    <option value="toner">Toner</option>
-                                                                <?php else : ?>
-                                                                    <option value="<?= $brng['kategori'] ?>" selected><?= $brng['kategori'] ?></option>
-                                                                    <option value="serum">Serum</option>
-                                                                    <option value="sunscreen">Sunscreen</option>
-                                                                    <option value="lotion">Lotion</option>
-                                                                    <option value="cleanser">Cleanser</option>
-                                                                    <option value="toner">Toner</option>
-                                                                <?php endif; ?>
-                                                            </select>
-                                                        </div>
-
-                                                        <input type="hidden" name="id" value="<?= $brng["id_produk"]; ?>">
-                                                        <input type="hidden" name="gambarlama" value="<?= $brng["gambar"] ?>">
-                                                    </div>
-
-                                                    <!-- Modal footer -->
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="border-radius: 0;">Batal</button>
-                                                        <button type="submit" class="btn btn-primary" name="UbahBrng" style="border-radius: 0;">Ubah</button>
-                                                    </div>
-                                                </form>
+                        <div class="col-lg-9">
+                            <div class="row mb-3">
+                                <div class="col">
+                                    <div class="card shadow mb-3">
+                                        <div class="card shadow">
+                                            <div class="card-header py-3">
+                                                <p class="text-primary m-0 fw-bold">Produk</p>
                                             </div>
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <div class="table-responsive table mt-9" id="dataTable" role="grid" aria-describedby="dataTable_info" style="width:100%;">
+
+                                                        <table id="example" class="thead-dark">
+                                                            <thead>
+                                                                <tr style="text-align: center;">
+                                                                    <th scope="col">No</th>
+                                                                    <th scope="col">Nama</th>
+                                                                    <th scope="col">Gambar</th>
+                                                                    <th scope="col">Jumlah</th>
+                                                                    <th scope="col">Harga</th>
+                                                                    <th scope="col">Kategori</th>
+                                                                    <th scope="col">Aksi</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <?php $i = 1; ?>
+
+                                                                <?php foreach ($order as $brng) : ?>
+                                                                    <tr style="text-align: center;">
+                                                                        <td><?= $i; ?></td>
+                                                                        <td><?= $brng["nama"] ?></td>
+                                                                        <td>
+                                                                            <?php echo "<img src='assets/img/profile/" . $brng['gambar'] . "' width='100' height='100'>"; ?>
+                                                                        </td>
+                                                                        <td><?= $brng["jumlah"] ?></td>
+                                                                        <td><?= $brng["harga"] ?></td>
+                                                                        <td><?= $brng["kategori"] ?></td>
+                                                                        <td>
+                                                                            <button data-toggle="modal" data-target="#edit<?= $brng["id_produk"]; ?>" class="btn btn-warning"><i class="fa fa-pen"></i></button> ||
+                                                                            <button data-toggle="modal" data-target="#hapus<?= $brng["id_produk"]; ?>" class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                                                                        </td>
+
+                                                                    </tr>
+                                                                    <?php $i++; ?>
+                                                                    <!-- Modal Edit Data -->
+                                                                    <div class="modal fade" id="edit<?= $brng["id_produk"]; ?>">
+                                                                        <div class="modal-dialog">
+                                                                            <div class="modal-content" style="background-color: white;">
+                                                                                <form method="post" enctype="multipart/form-data">
+
+                                                                                    <!-- Header -->
+                                                                                    <div class="modal-header">
+                                                                                        <h4 class="modal-title">UBAH DATA</h4>
+                                                                                    </div>
+                                                                                    <!-- Body -->
+                                                                                    <div class="modal-body">
+                                                                                        <div class="form-group">
+                                                                                            <label>Nama</label>
+                                                                                            <input type="text" id="nama" name="nama" class="form-control" value="<?= $brng['nama'] ?>">
+                                                                                        </div>
+                                                                                        <div class="form-group">
+                                                                                            <label>Gambar</label>
+                                                                                            <input type="file" id="gambar" name="gambar" class="form-control">
+                                                                                        </div>
+                                                                                        <div class="form-group">
+                                                                                            <label>Jumlah</label>
+                                                                                            <input type="text" id="jumlah" name="jumlah" class="form-control" value="<?= $brng['jumlah'] ?>">
+                                                                                        </div>
+                                                                                        <div class="form-group">
+                                                                                            <label>Harga</label>
+                                                                                            <input type="text" id="harga" name="harga" class="form-control" value="<?= $brng['harga'] ?>">
+                                                                                        </div>
+                                                                                        <div class="form-group">
+                                                                                            <label>Kategori</label>
+                                                                                            <select name="kategori" class="custom-select form-control">
+                                                                                                <?php if ($brng['kategori'] == '') : ?>
+                                                                                                    <option value="" selected>Pilih Kategori</option>
+                                                                                                    <option value="serum">Serum</option>
+                                                                                                    <option value="sunscreen">Sunscreen</option>
+                                                                                                    <option value="pelembab">Pelembab</option>
+                                                                                                    <option value="cleanser">Cleanser</option>
+                                                                                                    <option value="toner">Toner</option>
+                                                                                                <?php else : ?>
+                                                                                                    <option value="<?= $brng['kategori'] ?>" selected><?= $brng['kategori'] ?></option>
+                                                                                                    <option value="serum">Serum</option>
+                                                                                                    <option value="sunscreen">Sunscreen</option>
+                                                                                                    <option value="pelembab">Pelembab</option>
+                                                                                                    <option value="cleanser">Cleanser</option>
+                                                                                                    <option value="toner">Toner</option>
+                                                                                                <?php endif; ?>
+                                                                                            </select>
+                                                                                        </div>
+
+                                                                                        <input type="hidden" name="id" value="<?= $brng["id_produk"]; ?>">
+                                                                                        <input type="hidden" name="gambarlama" value="<?= $brng["gambar"] ?>">
+                                                                                    </div>
+
+                                                                                    <!-- Modal footer -->
+                                                                                    <div class="modal-footer">
+                                                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="border-radius: 0;">Batal</button>
+                                                                                        <button type="submit" class="btn btn-primary" name="UbahBrng" style="border-radius: 0;">Ubah</button>
+                                                                                    </div>
+                                                                                </form>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <!-- End Modal Edit Data -->
+                                                                    <!-- Modal hapus Data -->
+                                                                    <div class="modal fade" id="hapus<?= $brng["id_produk"]; ?>">
+                                                                        <div class="modal-dialog">
+                                                                            <div class="modal-content" style="background-color: white;">
+                                                                                <form method="post">
+
+                                                                                    <!-- Header -->
+                                                                                    <div class="modal-header">
+                                                                                        <h4 class="modal-title">HAPUS DATA
+                                                                                            <?= $brng['nama'] ?> -
+                                                                                        </h4>
+                                                                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                                                    </div>
+
+                                                                                    <!-- Modal body -->
+                                                                                    <div class="modal-body">
+                                                                                        Anda yakin ingin menghapus data ini?
+                                                                                        <input type="hidden" name="id" value="<?= $brng['id_produk']; ?>">
+                                                                                    </div>
+
+                                                                                    <!-- Modal footer -->
+                                                                                    <div class="modal-footer">
+                                                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="border-radius: 0;">Batal</button>
+                                                                                        <button type="submit" class="btn btn-danger" name="hapus" style="border-radius: 0;">Hapus</button>
+                                                                                    </div>
+                                                                                </form>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <!-- End Modal hapus Data -->
+                                                                <?php endforeach; ?>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- End Table Data Alumni -->
                                         </div>
                                     </div>
-                                    <!-- End Modal Edit Data -->
-                                    <!-- Modal hapus Data -->
-                                    <div class="modal fade" id="hapus<?= $brng["id_produk"]; ?>">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <form method="post">
+                                </div>
+                            </div>
 
-                                                    <!-- Header -->
-                                                    <div class="modal-header">
-                                                        <h4 class="modal-title">HAPUS DATA
-                                                            <?= $brng['nama'] ?> -
-                                                        </h4>
-                                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                    </div>
+                        </div>
+                        <footer class="bg-white sticky-footer">
+                            <div class="container my-auto">
+                                <div class="text-center my-auto copyright"><span>Copyright ©BetaGlowing Shop 2023</span></div>
+                            </div>
+                        </footer>
+                    </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+                </div>
 
-                                                    <!-- Modal body -->
-                                                    <div class="modal-body">
-                                                        Anda yakin ingin menghapus data ini?
-                                                        <input type="hidden" name="id" value="<?= $brng['id_produk']; ?>">
-                                                    </div>
-
-                                                    <!-- Modal footer -->
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="border-radius: 0;">Batal</button>
-                                                        <button type="submit" class="btn btn-danger" name="hapus" style="border-radius: 0;">Hapus</button>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
+                <!-- Modal tambah Data -->
+                <div id="myModal" class="modal fade">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header" style="background-color: white;">
+                                <h4 class="modal-title">TAMBAH DATA</h4>
+                            </div>
+                            <form action="" method="post" enctype="multipart/form-data">
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <label>Nama Barang</label>
+                                        <input type="text" name="nama" class="form-control" required>
                                     </div>
-                                    <!-- End Modal hapus Data -->
-                                <?php endforeach; ?>
-                            </tbody>
-                        </table>
+                                    <div class="form-group">
+                                        <label>Gambar</label>
+                                        <input name="gambar" type="file" class="form-control" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Jumlah</label>
+                                        <input type="number" name="jumlah" id="jumlah Barang" class="form-control" required>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Harga</label>
+                                        <input name="harga" type="number" class="form-control" placeholder="Harga Barang" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Kategori</label>
+                                        <select name="kategori" class="custom-select form-control">
+                                            <option value="" selected>Pilih jenis</option>
+                                            <option value="serum">Serum</option>
+                                            <option value="sunscreen">Sunscreen</option>
+                                            <option value="pelembab">Pelembab</option>
+                                            <option value="cleanser">Cleanser</option>
+                                            <option value="toner">Toner</option>
+                                        </select>
+                                    </div>
+
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="submit" name="TambahBrng" class="btn btn-primary">Save changes</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <footer class="bg-white sticky-footer">
-                <div class="container my-auto">
-                    <div class="text-center my-auto copyright"><span>Copyright ©BetaGlowing Shop 2023</span></div>
+                <!-- end tambah data modal -->
+
+                <!-- Modal tambah Data via excel -->
+                <div id="myModalExcel" class="modal fade">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">TAMBAH DATA VIA EXCEL</h4>
+                            </div>
+                            <form action="" method="post" enctype="multipart/form-data">
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <label>File Excel</label>
+                                        <input type="file" name="excel" class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="submit" name="AddExcel" class="btn btn-primary">Save changes</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
-            </footer>
-        </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
-    </div>
+                <!-- end tambah data via excel modal -->
 
-    <!-- Modal tambah Data -->
-    <div id="myModal" class="modal fade">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">TAMBAH DATA</h4>
-                </div>
-                <form action="" method="post" enctype="multipart/form-data">
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label>Nama Barang</label>
-                            <input type="text" name="nama" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Gambar</label>
-                            <input name="gambar" type="file" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Jumlah</label>
-                            <input type="number" name="jumlah" id="jumlah Barang" class="form-control" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Harga</label>
-                            <input name="harga" type="number" class="form-control" placeholder="Harga Barang" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Kategori</label>
-                            <select name="kategori" class="custom-select form-control">
-                                <option value="" selected>Pilih jenis</option>
-                                <option value="serum">Serum</option>
-                                <option value="sunscreen">Sunscreen</option>
-                                <option value="lotion">Lotion</option>
-                                <option value="cleanser">Cleanser</option>
-                                <option value="toner">Toner</option>
-                            </select>
-                        </div>
-
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" name="TambahBrng" class="btn btn-primary">Save changes</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    <!-- end tambah data modal -->
-
-    <!-- Modal tambah Data via excel -->
-    <div id="myModalExcel" class="modal fade">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">TAMBAH DATA VIA EXCEL</h4>
-                </div>
-                <form action="" method="post" enctype="multipart/form-data">
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label>File Excel</label>
-                            <input type="file" name="excel" class="form-control" required>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" name="AddExcel" class="btn btn-primary">Save changes</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    <!-- end tambah data via excel modal -->
-
-    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-    <script src="assets/js/bs-init.js"></script>
-    <script src="assets/js/theme.js"></script>
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
-    </script>
+                <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+                <script src="assets/js/bs-init.js"></script>
+                <script src="assets/js/theme.js"></script>
+                <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+                </script>
+                <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
+                </script>
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+                </script>
+                <script src=https://code.jquery.com/jquery-3.5.1.js></script>
+                <script src=https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js></script>
+                <script src=https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js></script>
+                <script>
+                    $(document).ready(function() {
+                        $('#example').DataTable();
+                    });
+                </script>
 </body>
 
 </html>

@@ -79,6 +79,11 @@ $rowNotification = mysqli_fetch_assoc($queryTotalNotification);
     <link rel="stylesheet" href="https://cdn.reflowhq.com/v2/toolkit.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800&amp;display=swap">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
+    <script defer src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script defer src=https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js></script>
+    <script defer src=https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js></script>
     <style>
         .fullscreen {
             position: fixed;
@@ -168,203 +173,225 @@ $rowNotification = mysqli_fetch_assoc($queryTotalNotification);
                     </div>
                 </nav>
                 <div class="container-fluid">
-                    <h3 class="text-dark mb-4">Pesanan</h3>
-                    <div class="card">
-                        <div class="table-responsive">
-                            <table class="table table-bordered">
-                                <tr>
-                                    <th class="w-25">Produk Yang Diorder</th>
-                                    <th class="w-25"> Harga Satuan</th>
-                                    <th>Total Harga</th>
-                                    <th>Nama Penerima</th>
-                                    <th>No. Telepon</th>
-                                    <th>Alamat</th>
-                                    <th>Waktu Pesanan</th>
-                                    <th>Bukti Pembayaran</th>
-                                    <th>Metode Pembayaran</th>
-                                    <th>Status Pembayaran</th>
-                                    <th>Status Pengiriman</th>
-                                    <th>Aksi</th>
-                                </tr>
-                                <?php
-                                $id = $_SESSION['id'];
-                                mysqli_query($conn, "SET SESSION sql_mode=''");
-                                $query = mysqli_query($conn, "SELECT MIN(pesanan.nama_penerima) AS nama_penerima, pesanan.no_hp, pesanan.tgl_pesanan, pesanan.id_pesanan, 
-                                orderan.harga, pesanan.jumlah_pesanan, pesanan.alamat, pesanan.metode_pembayaran, 
-                                pesanan.bukti_pembayaran, pesanan.status_pembayaran, pesanan.status_pengiriman, 
-                                pesanan.token_pesanan, 
-                                GROUP_CONCAT(CONCAT('<li>',orderan.nama,'<b> - </b>', pesanan.jumlah_pesanan,' pcs </li>') SEPARATOR '') AS id_produk, 
-                                GROUP_CONCAT(CONCAT('<li>','Rp.',orderan.harga * pesanan.jumlah_pesanan,'</li>') SEPARATOR '') AS total_harga 
-                              FROM pesanan 
-                              LEFT JOIN orderan ON pesanan.id_produk = orderan.id_produk  
-                              GROUP BY pesanan.token_pesanan 
-                              ORDER BY pesanan.id_pesanan DESC
-                              
-                              ");
-                                while ($row = mysqli_fetch_assoc($query)) {
-                                ?>
-                                    <tr>
-                                        <td><?php echo $row['id_produk']; ?></td>
-                                        <td><?php echo $row['total_harga']  ?></td>
-                                        <td>
-                                            <?php
-                                            $queryTotal = mysqli_query($conn, "SELECT SUM(harga * jumlah_pesanan) AS total_harga FROM pesanan INNER JOIN orderan ON pesanan.id_produk = orderan.id_produk WHERE pesanan.token_pesanan = '$row[token_pesanan]'");
-                                            $rowTotal = mysqli_fetch_array($queryTotal);
-                                            echo "Rp." . $rowTotal['total_harga'];
-                                            ?>
-                                        </td>
-                                        <td><?php echo $row['nama_penerima']; ?></td>
-                                        <td><?php echo $row['no_hp']; ?></td>
-                                        <td><?php echo $row['alamat']; ?></td>
-                                        <td><?php echo $row['tgl_pesanan']; ?></td>
-                                        <td><?php if ($row['bukti_pembayaran'] == NULL) {
-                                                echo "Belum Ada Bukti Pembayaran";
-                                            } else {
-                                                echo "<a href='../user/assets/img/profile/" . $row['bukti_pembayaran'] . "' target='_blank'>Lihat Bukti Pembayaran</a>";
-                                            } ?></td>
-                                        <td><?php echo $row['metode_pembayaran']; ?></td>
-                                        <td><?php echo $row['status_pembayaran']; ?></td>
-                                        <td><?php echo $row['status_pengiriman']; ?></td>
-                                        <td>
-                                            <button data-toggle="modal" data-target="#edit<?= $row["id_pesanan"]; ?>" class="btn btn-warning mb-3"><i class="fa fa-pen"></i></button>
-                                            <button data-toggle="modal" data-target="#hapus<?= $row["id_pesanan"]; ?>" class="btn btn-danger"><i class="fa fa-trash"></i></button>
-                                        </td>
-                                    </tr>
-                                    <!-- Modal Edit Data -->
-                                    <div class="modal fade" id="edit<?= $row["id_pesanan"]; ?>">
-                                        <div class="modal-dialog modal-dialog-centered">
-                                            <div class="modal-content">
-                                                <form method="post" enctype="multipart/form-data">
+                    <div class="col-lg-9">
+                        <div class="row mb-3">
+                            <div class="col">
+                                <div class="card shadow mb-3">
+                                    <div class="card shadow">
+                                        <div class="card-header py-3">
+                                            <p class="text-primary m-0 fw-bold">Pesanan</p>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="table-responsive table mt-9" id="dataTable" role="grid" aria-describedby="dataTable_info" style="width:100%;">
 
-                                                    <!-- Header -->
-                                                    <div class="modal-header">
-                                                        <h4 class="modal-title">UBAH DATA</h4>
-                                                    </div>
-                                                    <!-- Body -->
-                                                    <div class="modal-body">
-                                                        <input type="hidden" name="tokenPesanan" value="<?= $row["token_pesanan"]; ?>">
-                                                        <select class="form-select" aria-label="Default select example" name="statusPembayaran" required>
-                                                            <option value="" selected>Pilih Status Pembayaran</option>
-                                                            <option value="Belum Dibayar">Belum Dibayar</option>
-                                                            <option value="Sudah Dibayar">Sudah Dibayar</option>
-                                                        </select>
-                                                        <br>
-                                                        <select class="form-select" aria-label="Default select example" name="statusPengiriman" required>
-                                                            <option value="" selected>Pilih Status Pengiriman</option>
-                                                            <option value="Belum Dikirim">Belum Dikirim</option>
-                                                            <option value="Dalam Pengemasan">Dalam Pengemasan</option>
-                                                            <option value="Dalam Pengiriman">Dalam Pengiriman</option>
-                                                            <option value="Sudah Dikirim">Sudah Dikirim</option>
-                                                        </select>
-                                                    </div>
 
-                                                    <!-- Modal footer -->
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-danger" data-dismiss="modal" style="border-radius: 0;">Batal</button>
-                                                        <button type="submit" class="btn btn-warning" name="ubahPengirimanPembayaran" style="border-radius: 0;">Ubah</button>
-                                                    </div>
-                                                </form>
+                                                    <table id="example" class="table table-bordered">
+                                                        <thead>
+                                                            <tr>
+                                                                <th class="w-25">Produk Yang Diorder</th>
+                                                                <th class="w-25">Harga Satuan</th>
+                                                                <th>Total Harga</th>
+                                                                <th>Nama Penerima</th>
+                                                                <th>No. Telepon</th>
+                                                                <th>Alamat</th>
+                                                                <th>Waktu Pesanan</th>
+                                                                <th>Bukti Pembayaran</th>
+                                                                <th>Metode Pembayaran</th>
+                                                                <th>Status Pembayaran</th>
+                                                                <th>Status Pengiriman</th>
+                                                                <th>Aksi</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <?php
+                                                            $id = $_SESSION['id'];
+                                                            mysqli_query($conn, "SET SESSION sql_mode=''");
+                                                            $query = mysqli_query($conn, "SELECT MIN(pesanan.nama_penerima) AS nama_penerima, pesanan.no_hp, pesanan.tgl_pesanan, pesanan.id_pesanan, 
+                                                                    orderan.harga, pesanan.jumlah_pesanan, pesanan.alamat, pesanan.metode_pembayaran, 
+                                                                    pesanan.bukti_pembayaran, pesanan.status_pembayaran, pesanan.status_pengiriman, 
+                                                                    pesanan.token_pesanan, 
+                                                                    GROUP_CONCAT(CONCAT('<li>',orderan.nama,'<b> - </b>', pesanan.jumlah_pesanan,' pcs </li>') SEPARATOR '') AS id_produk, 
+                                                                    GROUP_CONCAT(CONCAT('<li>','Rp.',orderan.harga * pesanan.jumlah_pesanan,'</li>') SEPARATOR '') AS total_harga 
+                                                                    FROM pesanan 
+                                                                    LEFT JOIN orderan ON pesanan.id_produk = orderan.id_produk  
+                                                                    GROUP BY pesanan.token_pesanan 
+                                                                    ORDER BY pesanan.id_pesanan DESC
+                                                                    
+                                                                    ");
+                                                            while ($row = mysqli_fetch_assoc($query)) {
+                                                            ?>
+                                                                <tr>
+                                                                    <td><?php echo $row['id_produk']; ?></td>
+                                                                    <td><?php echo $row['total_harga']  ?></td>
+                                                                    <td>
+                                                                        <?php
+                                                                        $queryTotal = mysqli_query($conn, "SELECT SUM(harga * jumlah_pesanan) AS total_harga FROM pesanan INNER JOIN orderan ON pesanan.id_produk = orderan.id_produk WHERE pesanan.token_pesanan = '$row[token_pesanan]'");
+                                                                        $rowTotal = mysqli_fetch_array($queryTotal);
+                                                                        echo "Rp." . $rowTotal['total_harga'];
+                                                                        ?>
+                                                                    </td>
+                                                                    <td><?php echo $row['nama_penerima']; ?></td>
+                                                                    <td><?php echo $row['no_hp']; ?></td>
+                                                                    <td><?php echo $row['alamat']; ?></td>
+                                                                    <td><?php echo $row['tgl_pesanan']; ?></td>
+                                                                    <td><?php if ($row['bukti_pembayaran'] == NULL) {
+                                                                            echo "Belum Ada Bukti Pembayaran";
+                                                                        } else {
+                                                                            echo "<a href='../user/assets/img/profile/" . $row['bukti_pembayaran'] . "' target='_blank'>Lihat Bukti Pembayaran</a>";
+                                                                        } ?></td>
+                                                                    <td><?php echo $row['metode_pembayaran']; ?></td>
+                                                                    <td><?php echo $row['status_pembayaran']; ?></td>
+                                                                    <td><?php echo $row['status_pengiriman']; ?></td>
+                                                                    <td>
+                                                                        <button data-toggle="modal" data-target="#edit<?= $row["id_pesanan"]; ?>" class="btn btn-warning mb-3"><i class="fa fa-pen"></i></button>
+                                                                        <button data-toggle="modal" data-target="#hapus<?= $row["id_pesanan"]; ?>" class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                                                                    </td>
+                                                                </tr>
+                                                                <!-- Modal Edit Data -->
+                                                                <div class="modal fade" id="edit<?= $row["id_pesanan"]; ?>">
+                                                                    <div class="modal-dialog modal-dialog-centered">
+                                                                        <div class="modal-content" style="background-color: white;">
+                                                                            <form method="post" enctype="multipart/form-data">
+
+                                                                                <!-- Header -->
+                                                                                <div class="modal-header">
+                                                                                    <h4 class="modal-title">UBAH DATA</h4>
+                                                                                </div>
+                                                                                <!-- Body -->
+                                                                                <div class="modal-body">
+                                                                                    <input type="hidden" name="tokenPesanan" value="<?= $row["token_pesanan"]; ?>">
+                                                                                    <select class="form-select" aria-label="Default select example" name="statusPembayaran" required>
+                                                                                        <option value="" selected>Pilih Status Pembayaran</option>
+                                                                                        <option value="Belum Dibayar">Belum Dibayar</option>
+                                                                                        <option value="Sudah Dibayar">Sudah Dibayar</option>
+                                                                                    </select>
+                                                                                    <br>
+                                                                                    <select class="form-select" aria-label="Default select example" name="statusPengiriman" required>
+                                                                                        <option value="" selected>Pilih Status Pengiriman</option>
+                                                                                        <option value="Belum Dikirim">Belum Dikirim</option>
+                                                                                        <option value="Dalam Pengemasan">Dalam Pengemasan</option>
+                                                                                        <option value="Dalam Pengiriman">Dalam Pengiriman</option>
+                                                                                        <option value="Sudah Dikirim">Sudah Dikirim</option>
+                                                                                    </select>
+                                                                                </div>
+
+                                                                                <!-- Modal footer -->
+                                                                                <div class="modal-footer">
+                                                                                    <button type="button" class="btn btn-danger" data-dismiss="modal" style="border-radius: 0;">Batal</button>
+                                                                                    <button type="submit" class="btn btn-warning" name="ubahPengirimanPembayaran" style="border-radius: 0;">Ubah</button>
+                                                                                </div>
+                                                                            </form>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <!-- End Modal Edit Data -->
+                                                                <!-- Modal hapus Data -->
+                                                                <div class="modal fade" id="hapus<?= $row["id_pesanan"]; ?>">
+                                                                    <div class="modal-dialog modal-dialog-centered">
+                                                                        <div class="modal-content" style="background-color: white;">
+                                                                            <form method="post">
+
+                                                                                <!-- Header -->
+                                                                                <div class="modal-header">
+                                                                                    <h4 class="modal-title">HAPUS DATA
+
+                                                                                    </h4>
+                                                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                                                </div>
+
+                                                                                <!-- Modal body -->
+                                                                                <div class="modal-body">
+                                                                                    Anda yakin ingin menghapus data ini?
+                                                                                    <ul>
+                                                                                        <?= $row['id_produk'] ?>
+                                                                                    </ul>
+                                                                                    <input type="hidden" name="tokenPesanan" value="<?= $row['token_pesanan']; ?>">
+                                                                                </div>
+
+                                                                                <!-- Modal footer -->
+                                                                                <div class="modal-footer">
+                                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal" style="border-radius: 0;">Batal</button>
+                                                                                    <button type="submit" class="btn btn-danger" name="hapusDataPesanan" style="border-radius: 0;">Hapus</button>
+                                                                                </div>
+                                                                            </form>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <!-- End Modal hapus Data -->
+                                                            <?php } ?>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
                                             </div>
                                         </div>
+                                        <!-- End Table Data Alumni -->
                                     </div>
-                                    <!-- End Modal Edit Data -->
-                                    <!-- Modal hapus Data -->
-                                    <div class="modal fade" id="hapus<?= $row["id_pesanan"]; ?>">
-                                        <div class="modal-dialog modal-dialog-centered">
-                                            <div class="modal-content">
-                                                <form method="post">
-
-                                                    <!-- Header -->
-                                                    <div class="modal-header">
-                                                        <h4 class="modal-title">HAPUS DATA
-
-                                                        </h4>
-                                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                    </div>
-
-                                                    <!-- Modal body -->
-                                                    <div class="modal-body">
-                                                        Anda yakin ingin menghapus data ini?
-                                                        <ul>
-                                                            <?= $row['id_produk'] ?>
-                                                        </ul>
-                                                        <input type="hidden" name="tokenPesanan" value="<?= $row['token_pesanan']; ?>">
-                                                    </div>
-
-                                                    <!-- Modal footer -->
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="border-radius: 0;">Batal</button>
-                                                        <button type="submit" class="btn btn-danger" name="hapusDataPesanan" style="border-radius: 0;">Hapus</button>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- End Modal hapus Data -->
-                                <?php } ?>
-                            </table>
-
+                                </div>
+                            </div>
                         </div>
 
                     </div>
-
-                </div>
-                <!-- End of Main Content -->
-
-                <!-- Footer -->
+                    <footer class="bg-white sticky-footer">
+                        <div class="container my-auto">
+                            <div class="text-center my-auto copyright"><span>Copyright ©BetaGlowing Shop 2023</span></div>
+                        </div>
+                    </footer>
+                </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
             </div>
-            <footer class="bg-white sticky-footer">
-                <div class="container my-auto">
-                    <div class="text-center my-auto copyright"><span>Copyright ©BetaGlowing Shop 2023</span></div>
-                </div>
-            </footer>
-        </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
-    </div>
 
 
-    <script>
-        const zoom = document.querySelectorAll('.zoom');
+            <script>
+                const zoom = document.querySelectorAll('.zoom');
 
-        zoom.forEach(function(img) {
-            img.addEventListener('click', function() {
-                // Buat elemen <div> baru untuk menampilkan gambar yang diperbesar
-                const fullscreen = document.createElement('div');
-                fullscreen.classList.add('fullscreen');
+                zoom.forEach(function(img) {
+                    img.addEventListener('click', function() {
+                        // Buat elemen <div> baru untuk menampilkan gambar yang diperbesar
+                        const fullscreen = document.createElement('div');
+                        fullscreen.classList.add('fullscreen');
 
-                // Buat elemen <img> baru dengan sumber gambar yang sama seperti gambar yang diperbesar
-                const fullscreenImg = document.createElement('img');
-                fullscreenImg.src = this.src;
+                        // Buat elemen <img> baru dengan sumber gambar yang sama seperti gambar yang diperbesar
+                        const fullscreenImg = document.createElement('img');
+                        fullscreenImg.src = this.src;
 
-                // Tambahkan elemen <img> ke elemen <div>
-                fullscreen.appendChild(fullscreenImg);
+                        // Tambahkan elemen <img> ke elemen <div>
+                        fullscreen.appendChild(fullscreenImg);
 
-                // Tambahkan elemen <div> ke body
-                document.body.appendChild(fullscreen);
+                        // Tambahkan elemen <div> ke body
+                        document.body.appendChild(fullscreen);
 
-                // Hilangkan scrollbar pada body
-                document.body.style.overflow = 'hidden';
+                        // Hilangkan scrollbar pada body
+                        document.body.style.overflow = 'hidden';
 
-                // Tambahkan event listener untuk menghapus elemen <div> ketika diklik atau esc key ditekan
-                fullscreen.addEventListener('click', function() {
-                    fullscreen.remove();
-                    document.body.style.overflow = '';
+                        // Tambahkan event listener untuk menghapus elemen <div> ketika diklik atau esc key ditekan
+                        fullscreen.addEventListener('click', function() {
+                            fullscreen.remove();
+                            document.body.style.overflow = '';
+                        });
+
+                        document.addEventListener('keyup', function(e) {
+                            if (e.key === 'Escape') {
+                                fullscreen.remove();
+                                document.body.style.overflow = '';
+                            }
+                        });
+                    });
                 });
-
-                document.addEventListener('keyup', function(e) {
-                    if (e.key === 'Escape') {
-                        fullscreen.remove();
-                        document.body.style.overflow = '';
-                    }
+            </script>
+            <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+            <script src="assets/js/bs-init.js"></script>
+            <script src="assets/js/theme.js"></script>
+            <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+            <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+            <script src=https://code.jquery.com/jquery-3.5.1.js></script>
+            <script src=https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js></script>
+            <script src=https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js></script>
+            <script>
+                $(document).ready(function() {
+                    $('#example').DataTable();
                 });
-            });
-        });
-    </script>
-    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-    <script src="assets/js/bs-init.js"></script>
-    <script src="assets/js/theme.js"></script>
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+            </script>
 </body>
 
 </html>

@@ -45,6 +45,11 @@ if (isset($_POST['ubahBuktiPembayaran'])) {
     <link rel="stylesheet" href="https://cdn.reflowhq.com/v2/toolkit.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800&amp;display=swap">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
+    <script defer src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script defer src=https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js></script>
+    <script defer src=https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js></script>
     <style>
         .fullscreen {
             position: fixed;
@@ -109,25 +114,37 @@ if (isset($_POST['ubahBuktiPembayaran'])) {
                     </div>
                 </nav>
                 <div class="container-fluid">
-                    <h3 class="text-dark mb-4">Pesanan</h3>
-                    <div class="card">
-                        <div class="table-responsive">
-                            <table class="table table-bordered">
-                                <tr>
-                                    <th>Produk Yang Diorder</th>
-                                    <th>Total Harga Per Produk</th>
-                                    <th>Total Harga</th>
-                                    <th>Alamat</th>
-                                    <th>Metode Pembayaran</th>
-                                    <th>Bukti Pembayaran</th>
-                                    <th>Status Pembayaran</th>
-                                    <th>Status Pengiriman</th>
-                                    <th>Aksi</th>
-                                </tr>
-                                <?php
-                                $id = $_SESSION['id'];
-                                mysqli_query($conn, "SET SESSION sql_mode=''");
-                                $queryConcatTokenPesanan = mysqli_query($conn, "SELECT MIN(pesanan.nama_penerima) AS nama_penerima, pesanan.no_hp, pesanan.tgl_pesanan, pesanan.id_pesanan, 
+                    <div class="col-lg-9">
+                        <div class="row mb-3">
+                            <div class="col">
+                                <div class="card shadow mb-3">
+                                    <div class="card shadow">
+                                        <div class="card-header py-3">
+                                            <p class="text-primary m-0 fw-bold">Pesanan</p>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="table-responsive table mt-9" id="dataTable" role="grid" aria-describedby="dataTable_info" style="width:100%;">
+
+                                                    <table id="example" class="table table-bordered" style="width:100%">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Produk Yang Diorder</th>
+                                                                <th>Total Harga Per Produk</th>
+                                                                <th>Total Harga</th>
+                                                                <th>Alamat</th>
+                                                                <th>Metode Pembayaran</th>
+                                                                <th>Bukti Pembayaran</th>
+                                                                <th>Status Pembayaran</th>
+                                                                <th>Status Pengiriman</th>
+                                                                <th>Aksi</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <?php
+                                                            $id = $_SESSION['id'];
+                                                            mysqli_query($conn, "SET SESSION sql_mode=''");
+                                                            $queryConcatTokenPesanan = mysqli_query($conn, "SELECT MIN(pesanan.nama_penerima) AS nama_penerima, pesanan.no_hp, pesanan.tgl_pesanan, pesanan.id_pesanan, 
                                 orderan.harga, pesanan.jumlah_pesanan, pesanan.alamat, pesanan.metode_pembayaran, 
                                 pesanan.bukti_pembayaran, pesanan.status_pembayaran, pesanan.status_pengiriman, 
                                 pesanan.token_pesanan, 
@@ -141,142 +158,157 @@ if (isset($_POST['ubahBuktiPembayaran'])) {
                               ORDER BY pesanan.id_pesanan DESC ");
 
 
-                                while ($row = mysqli_fetch_array($queryConcatTokenPesanan)) {
-                                ?>
+                                                            while ($row = mysqli_fetch_array($queryConcatTokenPesanan)) {
+                                                            ?>
 
-                                    <tr>
-                                        <td class="Produk yang diorder"><?php echo $row['id_produk']; ?></td>
-                                        <td class="totalPerProduk"><?php echo $row['total_harga'] ?></td>
-                                        <td>
-                                            <?php
-                                            $queryTotal = mysqli_query($conn, "SELECT SUM(harga * jumlah_pesanan) AS total_harga FROM pesanan INNER JOIN orderan ON pesanan.id_produk = orderan.id_produk WHERE pesanan.id_user = $id AND pesanan.token_pesanan = '$row[token_pesanan]'");
-                                            $rowTotal = mysqli_fetch_array($queryTotal);
-                                            echo "Rp." . $rowTotal['total_harga'];
-                                            ?>
-                                        </td>
-                                        <td><?php echo $row['alamat']; ?></td>
-                                        <td><?php echo $row['metode_pembayaran']; ?></td>
-                                        <td> <?php if (!empty($row['bukti_pembayaran'])) : ?>
-                                                <?php echo "<img class='zoom' style='width: 100px; height: 100px;' src='assets/img/profile/" . $row['bukti_pembayaran'] . "''>"; ?>
-                                            <?php else : ?>
-                                                <p>Bukti Pembayaran Belum di Upload</p>
-                                            <?php endif; ?>
-                                        </td>
+                                                                <tr>
+                                                                    <td class="Produk yang diorder"><?php echo $row['id_produk']; ?></td>
+                                                                    <td class="totalPerProduk"><?php echo $row['total_harga'] ?></td>
+                                                                    <td>
+                                                                        <?php
+                                                                        $queryTotal = mysqli_query($conn, "SELECT SUM(harga * jumlah_pesanan) AS total_harga FROM pesanan INNER JOIN orderan ON pesanan.id_produk = orderan.id_produk WHERE pesanan.id_user = $id AND pesanan.token_pesanan = '$row[token_pesanan]'");
+                                                                        $rowTotal = mysqli_fetch_array($queryTotal);
+                                                                        echo "Rp." . $rowTotal['total_harga'];
+                                                                        ?>
+                                                                    </td>
+                                                                    <td><?php echo $row['alamat']; ?></td>
+                                                                    <td><?php echo $row['metode_pembayaran']; ?></td>
+                                                                    <td> <?php if (!empty($row['bukti_pembayaran'])) : ?>
+                                                                            <?php echo "<img class='zoom' style='width: 100px; height: 100px;' src='assets/img/profile/" . $row['bukti_pembayaran'] . "''>"; ?>
+                                                                        <?php else : ?>
+                                                                            <p>Bukti Pembayaran Belum di Upload</p>
+                                                                        <?php endif; ?>
+                                                                    </td>
 
-                                        <td><?php echo $row['status_pembayaran']; ?></td>
-                                        <td><?php echo $row['status_pengiriman']; ?></td>
-                                        <td>
-                                            <button data-toggle="modal" data-target="#edit<?= $row["id_pesanan"]; ?>" class="btn btn-primary">Ganti Bukti Pembayaran</button>
-                                        </td>
-                                    </tr>
-                                    <!-- Modal Edit Data -->
-                                    <div class="modal fade" id="edit<?= $row["id_pesanan"]; ?>">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <form method="post" enctype="multipart/form-data">
+                                                                    <td><?php echo $row['status_pembayaran']; ?></td>
+                                                                    <td><?php echo $row['status_pengiriman']; ?></td>
+                                                                    <td>
+                                                                        <button data-toggle="modal" data-target="#edit<?= $row["id_pesanan"]; ?>" class="btn btn-primary">Ganti Bukti Pembayaran</button>
+                                                                    </td>
+                                                                </tr>
+                                                                <!-- Modal Edit Data -->
+                                                                <div class="modal fade" id="edit<?= $row["id_pesanan"]; ?>">
+                                                                    <div class="modal-dialog">
+                                                                        <div class="modal-content" style="background-color:white;">
+                                                                            <form method="post" enctype="multipart/form-data">
 
-                                                    <!-- Header -->
-                                                    <div class="modal-header">
-                                                        <h4 class="modal-title">UBAH DATA</h4>
-                                                    </div>
-                                                    <!-- Body -->
-                                                    <div class="modal-body">
-                                                        <div class="card shadow mb-3">
-                                                            <div class="card-header py-3">
-                                                                <p class="text-primary m-0 fw-bold">Upload Bukti Pembayaran</p>
-                                                            </div>
-                                                            <div class="card-body">
-                                                                <input type="hidden" name="tokenPesanan" value="<?= $row['token_pesanan'] ?>" hidden>
-                                                                <div class="row">
-                                                                    <div class="row">
-                                                                        <div class="mb-3"><label class="form-label" for="bukti_pembayaran"><strong>Bukti Pembayaran</strong></label><input class="form-control" type="file" id="buktiPembayaran" name="gambar"></div>
+                                                                                <!-- Header -->
+                                                                                <div class="modal-header">
+                                                                                    <h4 class="modal-title">UBAH DATA</h4>
+                                                                                </div>
+                                                                                <!-- Body -->
+                                                                                <div class="modal-body">
+                                                                                    <div class="card shadow mb-3">
+                                                                                        <div class="card-header py-3">
+                                                                                            <p class="text-primary m-0 fw-bold">Upload Bukti Pembayaran</p>
+                                                                                        </div>
+                                                                                        <div class="card-body">
+                                                                                            <input type="hidden" name="tokenPesanan" value="<?= $row['token_pesanan'] ?>" hidden>
+                                                                                            <div class="row">
+                                                                                                <div class="row">
+                                                                                                    <div class="mb-3"><label class="form-label" for="bukti_pembayaran"><strong>Bukti Pembayaran</strong></label><input class="form-control" type="file" id="buktiPembayaran" name="gambar"></div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <!-- Modal footer -->
+                                                                                <div class="modal-footer">
+                                                                                    <button type="button" class="btn btn-danger" data-dismiss="modal" style="border-radius: 0;">Batal</button>
+                                                                                    <button type="submit" class="btn btn-warning" name="ubahBuktiPembayaran" style="border-radius: 0;">Ubah</button>
+                                                                                </div>
+                                                                            </form>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                                                <!-- End Modal Edit Data -->
+                                                            <?php } ?>
+                                                        </tbody>
 
-                                                    <!-- Modal footer -->
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-danger" data-dismiss="modal" style="border-radius: 0;">Batal</button>
-                                                        <button type="submit" class="btn btn-warning" name="ubahBuktiPembayaran" style="border-radius: 0;">Ubah</button>
-                                                    </div>
-                                                </form>
+
+                                                    </table>
+                                                </div>
                                             </div>
                                         </div>
+                                        <!-- End Table Data Alumni -->
                                     </div>
-                                    <!-- End Modal Edit Data -->
-                                <?php } ?>
-
-
-                            </table>
+                                </div>
+                            </div>
                         </div>
+
                     </div>
-                </div>
+                    <footer class="bg-white sticky-footer">
+                        <div class="container my-auto">
+                            <div class="text-center my-auto copyright"><span>Copyright ©BetaGlowing Shop 2023</span></div>
+                        </div>
+                    </footer>
+                </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
             </div>
-            <footer class="bg-white sticky-footer">
-                <div class="container my-auto">
-                    <div class="text-center my-auto copyright"><span>Copyright ©BetaGlowing Shop 2023</span></div>
-                </div>
-            </footer>
-        </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
-    </div>
 
 
-    <script>
-        $(document).ready(function() {
-            $('.totalHarga').each(function() {
-                var total = 0,
-                    harga = $(this).closest('tr').find('.harga').text(),
-                    jumlah = $(this).closest('tr').find('.jumlah').text();
-                total = harga * jumlah;
-                $(this).text(total);
-            });
-        });
-    </script>
-    <script>
-        const zoom = document.querySelectorAll('.zoom');
-
-        zoom.forEach(function(img) {
-            img.addEventListener('click', function() {
-                // Buat elemen <div> baru untuk menampilkan gambar yang diperbesar
-                const fullscreen = document.createElement('div');
-                fullscreen.classList.add('fullscreen');
-
-                // Buat elemen <img> baru dengan sumber gambar yang sama seperti gambar yang diperbesar
-                const fullscreenImg = document.createElement('img');
-                fullscreenImg.src = this.src;
-
-                // Tambahkan elemen <img> ke elemen <div>
-                fullscreen.appendChild(fullscreenImg);
-
-                // Tambahkan elemen <div> ke body
-                document.body.appendChild(fullscreen);
-
-                // Hilangkan scrollbar pada body
-                document.body.style.overflow = 'hidden';
-
-                // Tambahkan event listener untuk menghapus elemen <div> ketika diklik atau esc key ditekan
-                fullscreen.addEventListener('click', function() {
-                    fullscreen.remove();
-                    document.body.style.overflow = '';
+            <script>
+                $(document).ready(function() {
+                    $('.totalHarga').each(function() {
+                        var total = 0,
+                            harga = $(this).closest('tr').find('.harga').text(),
+                            jumlah = $(this).closest('tr').find('.jumlah').text();
+                        total = harga * jumlah;
+                        $(this).text(total);
+                    });
                 });
+            </script>
+            <script>
+                const zoom = document.querySelectorAll('.zoom');
 
-                document.addEventListener('keyup', function(e) {
-                    if (e.key === 'Escape') {
-                        fullscreen.remove();
-                        document.body.style.overflow = '';
-                    }
+                zoom.forEach(function(img) {
+                    img.addEventListener('click', function() {
+                        // Buat elemen <div> baru untuk menampilkan gambar yang diperbesar
+                        const fullscreen = document.createElement('div');
+                        fullscreen.classList.add('fullscreen');
+
+                        // Buat elemen <img> baru dengan sumber gambar yang sama seperti gambar yang diperbesar
+                        const fullscreenImg = document.createElement('img');
+                        fullscreenImg.src = this.src;
+
+                        // Tambahkan elemen <img> ke elemen <div>
+                        fullscreen.appendChild(fullscreenImg);
+
+                        // Tambahkan elemen <div> ke body
+                        document.body.appendChild(fullscreen);
+
+                        // Hilangkan scrollbar pada body
+                        document.body.style.overflow = 'hidden';
+
+                        // Tambahkan event listener untuk menghapus elemen <div> ketika diklik atau esc key ditekan
+                        fullscreen.addEventListener('click', function() {
+                            fullscreen.remove();
+                            document.body.style.overflow = '';
+                        });
+
+                        document.addEventListener('keyup', function(e) {
+                            if (e.key === 'Escape') {
+                                fullscreen.remove();
+                                document.body.style.overflow = '';
+                            }
+                        });
+                    });
                 });
-            });
-        });
-    </script>
-    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-    <script src="assets/js/bs-init.js"></script>
-    <script src="assets/js/theme.js"></script>
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+            </script>
+            <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+            <script src="assets/js/bs-init.js"></script>
+            <script src="assets/js/theme.js"></script>
+            <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+            <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+            <script src=https://code.jquery.com/jquery-3.5.1.js></script>
+            <script src=https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js></script>
+            <script src=https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js></script>
+            <script>
+                $(document).ready(function() {
+                    $('#example').DataTable();
+                });
+            </script>
 </body>
 
 </html>
