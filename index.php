@@ -74,6 +74,39 @@ if (isset($_POST['addToCart'])) {
       color: #fff;
       background-color: crimson;
       border-radius: 100%;
+
+    }
+
+    .outline1 {
+      border: 2px solid #fff;
+      padding: 10px 20px;
+      color: #fff;
+      border-radius: 50px;
+      transition: 0.6s;
+      margin-top: 20px;
+      margin-left: 30px;
+    }
+
+    .outline1:hover {
+      background-color: #fff;
+      color: #000;
+      border: 2px solid #fff;
+    }
+
+    .produkName {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-left: 30px;
+
+    }
+
+    .produkPrice {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-left: 30px;
+
     }
   </style>
 
@@ -98,11 +131,11 @@ if (isset($_POST['addToCart'])) {
             <div id="main-nav" class="collapse navbar-collapse navStyle">
               <ul class="nav navbar-nav" id="mainNav">
                 <li class="active"><a href="#hero_section" class="scroll-link">Home</a></li>
-                <li><a href="#aboutUs" class="scroll-link">About Us</a></li>
-                <li><a href="#service" class="scroll-link">Services</a></li>
                 <li><a href="#Portfolio" class="scroll-link">Galeri</a></li>
-                <!-- <li><a href="#team" class="scroll-link">Testimonials</a></li>
-                <li><a href="#contact" class="scroll-link">Contact</a></li> -->
+                <li><a href="#aboutUs" class="scroll-link">About Us</a></li>
+                <li><a href="#team" class="scroll-link">Testimonials</a></li>
+                <li><a href="#service" class="scroll-link">Services</a></li>
+                <!-- ?<li><a href="#contact" class="scroll-link">Contact</a></li> -->
                 <li style=" justify-content: flex-end; margin-left: 30px;">
                   <?php if (isset($_SESSION['admin'])) : ?>
                     <a href="Admin/profile.php"><i class="fa-solid fa-user" style="margin-right: 10px;"></i>Profile</a>
@@ -200,21 +233,30 @@ if (isset($_POST['addToCart'])) {
           <?php if (!empty($idUser)) : ?>
             <?php while ($dataBarang = mysqli_fetch_assoc($barang)) : ?>
               <div style="position: absolute; left: 0px; top: 0px; transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1); width: 337px; opacity: 1;" class="portfolio-item one-four   <?= $dataBarang['kategori'] ?> isotope-item">
-                <div class="portfolio_img"> <img style="width: 350px ; height: 260px; margin-top: 25px; " src="Admin/assets/img/profile/<?= $dataBarang['gambar'] ?>" alt="Portfolio 1"> </div>
-                <div class="item_overlay" style="width: 350px ; height: 260px; margin-top: 25px; ">
-                  <div class="item_info">
-                    <h4 class="project_name" style="font-family: 'Roboto Slab', serif;"><?= $dataBarang['nama'] ?></h4>
-                    <h4 style="color: white;">Rp.<?= $dataBarang['harga'] ?></h4>
+                <div class="portfolio_img"> <img style="width: 350px ; height: 260px; margin-top: 25px; " src="Admin/assets/img/profile/<?= $dataBarang['gambar'] ?>" alt="Portfolio 1">
+                </div>
+
+                <div class="row mb-3">
+                  <div class="produkName">
+                    <h4 style="font-family: 'Roboto Slab', serif;"><?= $dataBarang['nama'] ?></h4>
+                  </div>
+                  <div class="produkPrice">
+                    <h4 style="font-family: 'Roboto Slab', serif;">Rp. <?= number_format($dataBarang['harga'], 0, ',', '.') ?></h4>
+                  </div>
+
+                  <div>
                     <form action="" method="post">
                       <input type="hidden" name="id_barang" value="<?= $dataBarang['id_produk'] ?>">
                       <input type="hidden" name="harga" value="<?= $dataBarang['harga'] ?>">
                       <input type="hidden" name="id_user" value="<?= $_SESSION['id'] ?>">
                       <!-- button add to chart -->
-                      <button type="submit" name="addToCart" style="  border: none; background: none; margin-top:20px;"><i class="fa-solid fa-cart-plus fa-xl" style="color:#ffffff;"></i></button>
+                      <button class="btn btn-info outline1" type="submit" name="addToCart" style="margin-left: 10px; margin-top:10px; "> Tambahkan Ke Keranjang </button>
                       <!-- end button add to chart -->
                     </form>
+
                   </div>
                 </div>
+
               </div>
             <?php endwhile; ?>
           <?php else : ?>
@@ -258,14 +300,14 @@ if (isset($_POST['addToCart'])) {
 
     <!--Hero_Section-->
 
-    <section id="aboutUs">
+    <section id="aboutUs" style="background-color: #e5f8f5;">
       <!--Aboutus-->
       <div class="inner_wrapper">
         <div class="container">
           <h2>About Us</h2>
           <div class="inner_section">
             <div class="row">
-              <div class=" col-lg-4 col-md-4 col-sm-4 col-xs-12 pull-right"><img src="img/about-img.jpg" class="img-circle delay-03s animated wow zoomIn" alt=""></div>
+              <div class=" col-lg-4 col-md-4 col-sm-4 col-xs-12 pull-right"><img src="./iconwebsite.png" class="img-circle delay-03s animated wow zoomIn" alt=""></div>
               <div class=" col-lg-7 col-md-7 col-sm-7 col-xs-12 pull-left">
                 <div class=" delay-01s animated fadeInDown wow animated">
                   <h3>Sekilas Mengenai BetaGlowing Shop</h3><br />
@@ -285,50 +327,116 @@ if (isset($_POST['addToCart'])) {
     <!--Aboutus-->
 
 
-    <!--Service-->
-    <section id="service">
+    <section class="page_section team" id="team">
+      <!--main-section team-start-->
       <div class="container">
-        <h2>Services</h2>
-        <div class="service_wrapper">
+        <h2>Testimonials</h2>
+        <h6>Beberapa Komentar Mengenai Produk Kami</h6>
+
+        <div class="member-area">
           <div class="row">
-            <div class="col-lg-4">
-              <div class="service_block">
-                <div class="service_icon icon2  delay-03s animated wow zoomIn"> <span><i class="fa fa-cart-plus"></i></span>
-                </div>
-                <h3 class="animated fadeInUp wow">Tambahkan Ke Keranjang</h3>
-                <p class="animated fadeInDown wow">pilih produk yang anda ingin beli, setelah itu tambahkan ke keranjang
-                </p>
-              </div>
+            <div class="col-md-6">
+              <div class="member wow bounceInUp animated">
+                <div class="member-container" data-wow-delay=".1s">
+                  <div class="inner-container">
+                    <div class="author-avatar">
+                      <img class="img-circle" src="img/raslam.jpg" alt="Team Menber">
+                    </div><!-- /.author-avatar -->
+
+                    <div class="member-details">
+                      <div class="member-top">
+                        <h4 class="name">
+                          Raslam Nahak
+                        </h4>
+                        <span class="designation">
+                          cool bet
+                        </span>
+                      </div><!-- /.member-top -->
+
+                      <p>
+                        Kulit saya terasa lebih lembut dan tampak lebih muda setelah menggunakan rangkaian produk yang mereka tawarkan. Selain itu, proses pembelian sangat mudah dan pengiriman cepat. Sangat direkomendasikan!
+                      </p>
+                    </div><!-- /.member-details -->
+                  </div><!-- /.inner-container -->
+                </div><!-- /.member-container -->
+              </div><!-- /.member -->
             </div>
-            <div class="col-lg-4 borderLeft">
-              <div class="service_block">
-                <div class="service_icon delay-03s animated wow  zoomIn"> <span><i class="fa fa-credit-card"></i></span>
-                </div>
-                <h3 class="animated fadeInUp wow">Pembayaran Mudah</h3>
-                <p class="animated fadeInDown wow">Nikmati Pembayaran Yang Cepat dan Mudah</p>
-              </div>
+
+            <div class="col-md-6">
+              <div class="member wow bounceInUp animated">
+                <div class="member-container" data-wow-delay=".3s">
+                  <div class="inner-container">
+                    <div class="author-avatar">
+                      <img class="img-circle" src="./img/team_pic1.jpg" alt="Team Menber">
+                    </div><!-- /.author-avatar -->
+                    <div class="member-details">
+                      <div class="member-top">
+                        <h4 class="name">
+                          Ronald Lehot
+                        </h4>
+                        <span class="designation">
+                          Mahasiswa
+                        </span>
+                      </div><!-- /.member-top -->
+                      <p>
+                        Saya ingin mengucapkan terima kasih kepada website penjualan skincare ini. Produk yang saya beli sangat efektif dalam mengatasi masalah jerawat saya. Saya melihat perubahan yang signifikan setelah menggunakan produk tersebut selama beberapa minggu.
+                      </p>
+                    </div><!-- /.member-details -->
+                  </div><!-- /.inner-container -->
+                </div><!-- /.member-container -->
+              </div><!-- /.member -->
             </div>
-            <div class="col-lg-4 borderLeft">
-              <div class="service_block">
-                <div class="service_icon icon3  delay-03s animated wow zoomIn"> <span><i class="fa fa-truck"></i></span>
+          </div><!-- /.row -->
+        </div>
+
+
+      </div>
+
+
+      <!--Service-->
+      <section id="service" style="background-color:#abd1f0;">
+        <div class="container">
+          <h2>Services</h2>
+          <div class="service_wrapper">
+            <div class="row">
+              <div class="col-lg-4">
+                <div class="service_block">
+                  <div class="service_icon icon2  delay-03s animated wow zoomIn"> <span><i class="fa fa-cart-plus"></i></span>
+                  </div>
+                  <h3 class="animated fadeInUp wow">Tambahkan Ke Keranjang</h3>
+                  <p class="animated fadeInDown wow">pilih produk yang anda ingin beli, setelah itu tambahkan ke keranjang
+                  </p>
                 </div>
-                <h3 class="animated fadeInUp wow">Fast Delivery</h3>
-                <p class="animated fadeInDown wow">Pengiriman Cepat, Secepat Badai Seroja</p>
+              </div>
+              <div class="col-lg-4 borderLeft">
+                <div class="service_block">
+                  <div class="service_icon delay-03s animated wow  zoomIn"> <span><i class="fa fa-credit-card"></i></span>
+                  </div>
+                  <h3 class="animated fadeInUp wow">Pembayaran Mudah</h3>
+                  <p class="animated fadeInDown wow">Nikmati Pembayaran Yang Cepat dan Mudah</p>
+                </div>
+              </div>
+              <div class="col-lg-4 borderLeft">
+                <div class="service_block">
+                  <div class="service_icon icon3  delay-03s animated wow zoomIn"> <span><i class="fa fa-truck"></i></span>
+                  </div>
+                  <h3 class="animated fadeInUp wow">Fast Delivery</h3>
+                  <p class="animated fadeInDown wow">Pengiriman Cepat, Secepat Badai Seroja</p>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
-    <!--Service-->
+      </section>
+      <!--Service-->
 
 
 
 
 
-    <!--Footer-->
-    <footer class="footer_wrapper" id="contact">
-      <!-- <div class="container">
+      <!--Footer-->
+      <footer class="footer_wrapper" id="contact">
+        <!-- <div class="container">
         <section class="page_section contact" id="contact">
           <div class="contact_section">
             <h2>Contact Us</h2>
@@ -359,9 +467,9 @@ if (isset($_POST['addToCart'])) {
         </section>
       </div>
       </section> -->
-      <footer>
-        <div class="footer_bottom"><span>Copyright ©BetaGlowing Shop 2023</a></span></div>
-      </footer>
+        <footer>
+          <div class="footer_bottom"><span>Copyright ©BetaGlowing Shop 2023</a></span></div>
+        </footer>
   </div>
 
   <script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
