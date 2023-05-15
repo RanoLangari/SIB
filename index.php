@@ -410,7 +410,7 @@ if (isset($_POST['addToCart'])) {
               <div class="member-container" data-wow-delay=".7s">
                 <div class="inner-container">
                   <div class="author-avatar">
-                    <img class="img-circle" src="img/team_pic4.jpg" alt="Team Menber">
+                    <img class="img-circle" src="img/tasya.png" alt="Team Menber">
                   </div><!-- /.author-avatar -->
                   <div class="member-details">
                     <div class="member-top">
